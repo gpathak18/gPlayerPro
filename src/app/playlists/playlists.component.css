@@ -1,0 +1,89 @@
+.grid-layout {
+  display: grid;
+  grid-template-columns: 20% auto;
+  grid-template-rows: 100%;
+  height: 100%;
+}
+
+.icon-style {
+  color: #3e3e3e;
+}
+
+.mat-list-items {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  cursor: pointer;
+}
+
+.playlist-item-style:hover {
+    
+  border-left-color:  hsla(36, 100%, 50%, 1);
+  background-color:  rgba(80, 80, 80, 0.075); 
+
+}
+
+.playlist-item-style {
+  border-left: 3px;
+  border-left-style: solid;
+  border-left-color: rgba(0, 0, 0, 0);
+  cursor: pointer;
+}
+
+.input-style {
+    padding: 5px;
+    border: none;
+    font-size: 16px;
+    width: 100%;
+    background: none;
+    border-bottom: 2px solid #ffdc40;
+
+}
+
+.image-style {
+  border-bottom: 2px solid #ff40bb;
+  padding-bottom: 3px;
+  cursor: pointer;
+}
+
+.mat-list-style {
+  width: 100%;
+  height: 100%;
+  overflow-y: hidden;
+ background-color: rgba(0,0,0,.1);
+}
+
+.mat-list-style:hover {
+  overflow-y: overlay;
+}
+
+.player-table-view {
+  height: calc(100vh - 118px);
+}
+
+.div-text {
+  margin-top: 5px;
+  font-family: roboto;
+  font-size: 16px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.hide {
+  visibility: hidden;
+}
+
+.show {
+  visibility: visible;
+}
+
+.divider {
+  border-left:1px solid #38546d; 
+  border-right:1px solid #16222c; 
+  height:80px;
+  position:absolute;
+  right:249px;
+  top:10px; 
+}

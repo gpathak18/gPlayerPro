@@ -1,0 +1,14 @@
+<div class="grid-layout">
+  <div>
+    <mat-list  class="mat-list-style">
+      <mat-list-item   mat-ink-ripple class="playlist-item-style" *ngFor="let setting of settings" [id]="setting.id">
+          <mat-icon matListIcon class="icon-style">{{setting.icon}}</mat-icon>
+          <div class="div-text">{{setting.name}}</div>
+      </mat-list-item>
+    </mat-list>
+  </div>
+  <div style="background: whitesmoke; overflow-y: auto"> 
+    <app-equalizer></app-equalizer>
+  </div>
+</div>
+

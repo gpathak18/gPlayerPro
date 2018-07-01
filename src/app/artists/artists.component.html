@@ -1,0 +1,36 @@
+<div class="grid-layout">
+  <div>
+    <mat-list class="mat-list-style">
+      <mat-list-item>
+        <input class="input-style" placeholder="Filter Artists" [(ngModel)]="playlistname" type="text" (keyup.enter)="addPlaylist($event)">
+      </mat-list-item>
+      <mat-list-item mat-ink-ripple class="playlist-item-style" *ngFor="let artist of artists" [id]="artist.id">
+        <!-- <mat-icon matListIcon class="icon-style">{{artist.name}}</mat-icon> -->
+        {{artist.name}}
+      </mat-list-item>
+    </mat-list>
+  </div>
+  <div class="grid-layout-detail">
+    <div class="div-text grid-layout-header">
+      <div>
+        <div>
+          <span style="font-size: 36px; font-weight: 500; margin: 0px 0px 10px 0px">A. R. Rehman</span>
+        </div>
+        <div style="margin: 5px 0px 0px 0px">
+          <span>2 Albums
+            <span class="dot"></span> 6 Songs
+            <span class="dot"></span> 42 Hours</span>
+        </div>
+      </div>
+      <div style="display: flex;justify-content: center; align-items: center;">
+        <button mat-mini-fab style="background:hsla(36, 100%, 50%, 1) ">
+          <mat-icon aria-label="open folder" style="color: #3e3e3e;">more_vert</mat-icon>
+        </button>
+      </div>
+      <mat-divider></mat-divider>
+    </div>
+    <div>
+        <app-album-detail></app-album-detail>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,44 @@
+<div class="footer-container">
+  <div class="player-menu">
+    <!-- <button mat-menu-item (click)="file.click()">
+      <mat-icon aria-label="open folder">create_new_folder</mat-icon>
+    </button> -->
+    <button mat-icon-button>
+      <mat-icon aria-label="open folder" class="mat-icon-style">repeat</mat-icon>
+    </button>
+    <button mat-icon-button>
+      <mat-icon aria-label="open folder" class="mat-icon-style">shuffle</mat-icon>
+    </button>
+    <div class="volume-control"  >
+      <button mat-icon-button  (click)="hover = hover===true? hover = false: hover = true" >
+        <mat-icon aria-label="open folder" class="mat-icon-style" id="volume">{{volumeIcon}}</mat-icon>
+      </button>
+      <div class="volume-slider" *ngIf="hover" (mouseleave)="hover = false" [@fadeAnimation]="true">
+        <mat-slider min="0" max="100" step="1" [value]="volume"  vertical=false (input)="updateVolume($event)"></mat-slider>
+      </div>
+    </div>
+    <!-- <button mat-menu-item>
+      <mat-icon aria-label="open folder">volume_down</mat-icon>
+    </button> -->
+    <!-- <input type="file" #file style="display:none" (change)='changeListener($event)' accept="audio/*" multiple/> -->
+  </div>
+  <app-waveform style="display: grid; flex-basis: 200%;"></app-waveform>
+  <div class="player-menu">
+    <!-- <button mat-menu-item (click)="file.click()">
+      <mat-icon aria-label="open folder">create_new_folder</mat-icon>
+    </button> -->
+    <button mat-icon-button>
+      <mat-icon aria-label="open folder" class="mat-icon-style">skip_previous</mat-icon>
+    </button>
+    <button mat-mini-fab style="background: #ffd561">
+      <mat-icon aria-label="open folder" style="color: #3e3e3e">play_arrow</mat-icon>
+    </button>
+    <button mat-icon-button class="mat-icon-style">
+      <mat-icon aria-label="open folder">skip_next</mat-icon>
+    </button>
+    <!-- <button mat-menu-item>
+      <mat-icon aria-label="open folder">volume_down</mat-icon>
+    </button> -->
+    <!-- <input type="file" #file style="display:none" (change)='changeListener($event)' accept="audio/*" multiple/> -->
+  </div>
+</div>

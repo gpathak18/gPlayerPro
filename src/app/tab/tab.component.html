@@ -1,0 +1,11 @@
+<nav mat-tab-nav-bar  class="navbar">
+  <a mat-tab-link *ngFor="let link of navLinks; let i = index" [routerLink]="link.path" routerLinkActive #rla="routerLinkActive"
+    [active]="rla.isActive">
+    <mat-icon>{{link.icon}}</mat-icon>
+    <span style="margin-left: 10px">{{link.label}}</span>
+  </a>
+</nav>
+<!-- <div [@fadeAnimation]="o.isActivated ? o.activatedRoute : ''">
+    <router-outlet #o="outlet"></router-outlet>
+</div> -->
+<!-- <router-outlet></router-outlet> -->

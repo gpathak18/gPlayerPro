@@ -1,0 +1,36 @@
+<div class="grid-layout">
+  <div>
+    <mat-list  class="mat-list-style">
+      <mat-list-item>
+        <input class="input-style" placeholder="Create Playlist" [(ngModel)]="playlistname" type="text" (keyup.enter)="addPlaylist($event)">
+      </mat-list-item>
+      <mat-list-item class="playlist-item-style" *ngFor="let playlist of playLists" [id]="playlist.Name" (mouseenter)="playlist.IsHidden=true"
+        (mouseleave)="playlist.IsHidden=false" (click)="selectedPlylst($event)" (dblclick)="playPlaylist($event)">
+        <div class="mat-list-items">
+          <!-- <mat-icon matListIcon class="icon-style">playlist</mat-icon> -->
+          <div class="div-text">{{playlist.Name}}</div>
+          <mat-icon *ngIf="playlist.IsHidden" [id]="playlist.Name" (click)="deletePlaylist($event)">close</mat-icon>
+        </div>
+      </mat-list-item>
+    </mat-list>
+  </div>
+  <div class="headerDivider"></div>
+  <div style="background: whitesmoke"> 
+    <app-tableview class="player-table-view"></app-tableview>
+  </div>
+</div>
+
+<!-- <mat-menu #menu="matMenu" style="font-size: 10px">
+  <button mat-menu-item>
+      <mat-icon>play_circle_outline</mat-icon>
+      <span>Play Next</span>
+  </button>
+  <button mat-menu-item>
+      <mat-icon>queue_music</mat-icon>
+      <span>Queue Track</span>
+  </button>
+  <button mat-menu-item>
+      <mat-icon>close</mat-icon>
+      <span>Remove</span>
+  </button>
+</mat-menu> -->

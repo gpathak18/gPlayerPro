@@ -1,0 +1,35 @@
+<div >
+  <div class="presets">
+    <mat-button-toggle-group #group="matButtonToggleGroup" class="button-group">
+      <mat-button-toggle *ngFor="let preset of presets" value="preset.preset" (click)="setEqPreset(preset.preset)" >
+        <mat-icon>{{preset.icon}}</mat-icon>
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+  <div class="canvas">
+    <div class="preset-title">
+      <mat-slide-toggle labelPosition="after"  style="align-items: End">Graph On</mat-slide-toggle>
+      <span *ngIf="group.value">{{group.value}}</span>
+      <span *ngIf="group.value===''">Flat</span>
+      <mat-slide-toggle [labelPosition]="before"  style="align-items: End">Show Graph</mat-slide-toggle>
+    </div>
+    <app-eq-canvas></app-eq-canvas>
+  </div>
+  <div class="sliders">
+    <div style="overflow: hidden;display: flex; flex-direction: row; align-items: center;justify-content: center;">
+      <div *ngFor="let eqSlider of eqSliders ">
+        <div class="slider-div">
+          <mat-slider class="slider-class" [id]="eqSlider.f" max='40' min='-40' step="1" thumbLabel=true [value]="eqSlider.value" (input)="updateEqBand($event)"
+            vertical=true>
+          </mat-slider>
+          <div class="preset-title" style="height: 30px;color: whitesmoke; font-size: 14px">
+            {{eqSlider.f}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<mat-menu #eqpresetmenu="matMenu">
+  <button mat-menu-item *ngFor="let preset of presets">{{preset}}</button>
+</mat-menu>
