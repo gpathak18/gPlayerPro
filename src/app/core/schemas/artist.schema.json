@@ -1,0 +1,29 @@
+{
+  "title": "Artist Schema",
+  "type": "object",
+  "version": 0,
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "ArtistName": {
+      "type": "string"
+    },
+    "ArtistImage": {
+      "type": "string"
+    },
+    "Albums": {
+      "type": "array",
+      "ref": "album",
+      "items": {
+        "type": "string"
+      }
+    },
+    "Link": {
+      "type": "string"
+    },
+    "Source": {
+      "type": "string"
+    }
+  }
+}

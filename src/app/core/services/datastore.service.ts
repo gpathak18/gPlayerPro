@@ -9,13 +9,14 @@ import { PlaylistService } from './playlist.service';
 import { AutoplayService } from './autoplay.service';
 import { PlayerService } from './player.service';
 import { FilehandlingService } from './filehandling.service';
+import { RxDocument } from 'rxdb';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DatastoreService extends DataSource<Track> {
 
-  private trackSubject: BehaviorSubject<Array<Track>> = new BehaviorSubject<Array<Track>>([]);
+  private trackSubject: BehaviorSubject<Array<any>> = new BehaviorSubject<Array<any>>([]);
 
   constructor() {
     super()
@@ -34,11 +35,8 @@ export class DatastoreService extends DataSource<Track> {
     this.loadTracks(tracks);
   }
 
-  loadTracks(tracks: Array<Track>) {
+  async loadTracks(tracks) {
     this.trackSubject.next(tracks);
   }
 
-  loadAlbums() {
-
-  }
 }

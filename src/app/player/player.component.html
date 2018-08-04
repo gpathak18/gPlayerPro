@@ -1,86 +1,151 @@
-<!-- <div class="player-div">
-  <div class="grid-layout" style="justify-self: center;align-self: center;">
-    <div class="player-card" style="justify-self: center;align-self: center;">
-      <div class="player-header">
-        <div style="justify-self: center; align-self: center;display: grid;
-      grid-template-columns: 100%;
-      grid-template-rows: 100%;">
-          <div style="justify-self: center; align-self: center;color: #000002;font-family: Roboto;font-size: 14px;">{{nowPlaying}}</div>
-        </div>
-        <app-waveform></app-waveform>
-        <div class="player-menu">
-          <button mat-menu-item (click)="file.click()">
-            <mat-icon aria-label="open folder">create_new_folder</mat-icon>
-          </button>
-          <button mat-menu-item>
-            <mat-icon aria-label="open folder">skip_previous</mat-icon>
-          </button>
-          <button mat-menu-item>
-            <mat-icon aria-label="open folder">play_arrow</mat-icon>
-          </button>
-          <button mat-menu-item>
-            <mat-icon aria-label="open folder">skip_next</mat-icon>
-          </button>
-          <button mat-menu-item>
-            <mat-icon aria-label="open folder">volume_down</mat-icon>
-          </button>
-          <input type="file" #file style="display:none" (change)='changeListener($event)' accept="audio/*" multiple/>
-        </div>
-      </div>
-      <div class="player-body" style="overflow: hidden;">
-        <div class="player-column-one">
-          <div style="display: grid;  perspective: 800px;">
-            <app-image [imageUrl]="imageUrl" class="image-container" [@flipImage]="state"></app-image>
-            <div class="div-text">
-              {{albumName}}
-            </div>
-          </div>
-        </div>
-        <app-tableview class="player-table-view"></app-tableview>
-      </div>
-    </div> 
+<div class="main-grid-layout">
+  <div class="main-grid-layout mood-container">
+    <mat-form-field style="width:95%" [floatLabel]="never">
+      <mat-chip-list #chipList>
+        <mat-chip style="background-color:greenyellow;opacity: 0.8;" *ngFor="let genere of generes" [selectable]="selectable" [removable]="removable"
+          (removed)="remove(genere)">
+          {{genere}}
+          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+        </mat-chip>
+        <input placeholder="What's your genere?" #genereInput [formControl]="genereCtrl" [matAutocomplete]="auto" [matChipInputFor]="chipList"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)">
+      </mat-chip-list>
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+        <mat-option *ngFor="let genere of filteredGenere | async" [value]="genere">
+          {{genere}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
   </div>
-</div> -->
-<div class="player-div">
-  <div class="grid-layout" style="justify-self: center;align-self: center;">
-    <div class="player-card" style="justify-self: center;align-self: center;">
-      <div class="player-header">
-        <div style="justify-self: center; align-self: center;display: grid;
-      grid-template-columns: 100%;
-      grid-template-rows: 100%;">
-          <div style="justify-self: center; align-self: center;color: #000002;font-family: Roboto;font-size: 14px;">{{nowPlaying}}</div>
-        </div>
-        <app-waveform></app-waveform>
-        <div class="player-menu">
-          <button mat-menu-item (click)="file.click()">
-            <mat-icon aria-label="open folder">create_new_folder</mat-icon>
-          </button>
-          <button mat-menu-item>
-            <mat-icon aria-label="open folder">skip_previous</mat-icon>
-          </button>
-          <button mat-menu-item>
-            <mat-icon aria-label="open folder">play_arrow</mat-icon>
-          </button>
-          <button mat-menu-item>
-            <mat-icon aria-label="open folder">skip_next</mat-icon>
-          </button>
-          <button mat-menu-item>
-            <mat-icon aria-label="open folder">volume_down</mat-icon>
-          </button>
-          <input type="file" #file style="display:none" (change)='changeListener($event)' accept="audio/*" multiple/>
-        </div>
-      </div>
-      <!-- <div class="player-body" style="overflow: hidden;">
-        <div class="player-column-one">
-          <div style="display: grid;  perspective: 800px;">
-            <app-image [imageUrl]="imageUrl" class="image-container" [@flipImage]="state"></app-image>
-            <div class="div-text">
-              {{albumName}}
-            </div>
-          </div>
-        </div>
-        <app-tableview class="player-table-view"></app-tableview>
+
+  <div class="main-grid-layout detail-container">
+    <div class="main-grid-layout detail-container queue-container">
+      <!-- <div style="opacity: 0.9;;align-self: center;background: #3e3e3e;">
+        <button mat-stroked-button style="border: none; background: #3e3e3e;opacity: 0.9;color: whitesmoke">
+          Up Next
+        </button>
+        <button mat-stroked-button style="border: none;background: #3e3e3e;opacity: 0.9;color: whitesmoke">
+          Recently Played
+        </button>
+        <button mat-stroked-button style="border: none;background: #3e3e3e;opacity: 0.9;color: whitesmoke">
+          Most Played
+        </button>
       </div> -->
-    </div> 
+
+      <mat-tab-group position="0">
+        <mat-tab label="Up Next">
+          <mat-list style="overflow-y: auto">
+            <mat-list-item *ngFor="let track of autoPlaylist; let i = index" class="img-wrapper">
+              <div matListAvatar style="justify-self: center;width:40px;height:40px;border-radius: 5%;overflow: hidden">
+                <app-image [imageUrl]="track.Image"></app-image>
+                <div class="play-album-sm">
+                  <button mat-mini-fab color="white">
+                    <mat-icon aria-label="play arrow">play_arrow</mat-icon>
+                  </button>
+                </div>
+              </div>
+              <span matLine style="font-size: 14px">{{track.TrackName}}</span>
+              <span matLine *ngIf="track.Artist!=null" style="font-size: 12px;color: rgba(0,0,0,.6);">{{track.Artist}}</span>
+              <span matLine *ngIf="track.Artist==null" style="font-size: 12px;color: rgba(0,0,0,.6);">Unknown</span>
+              <mat-divider></mat-divider>
+            </mat-list-item>
+          </mat-list>
+        </mat-tab>
+        <mat-tab label="Recently Played">
+          <mat-list style="overflow-y: auto">
+            <mat-list-item *ngFor="let track of autoPlaylist; let i = index">
+              <div matListAvatar style="justify-self: center;width:40px;height:40px;border-radius: 5%;overflow: hidden">
+                <app-image [imageUrl]="track.Image"></app-image>
+              </div>
+              <span matLine style="font-size: 14px">{{track.TrackName}}</span>
+              <span matLine *ngIf="track.Artist!=null" style="font-size: 12px;color: rgba(0,0,0,.6);">{{track.Artist}}</span>
+              <span matLine *ngIf="track.Artist==null" style="font-size: 12px;color: rgba(0,0,0,.6);">Unknown</span>
+              <mat-divider></mat-divider>
+            </mat-list-item>
+          </mat-list>
+        </mat-tab>
+        <mat-tab label="Weekly Top 10">
+          <mat-list style="overflow-y: auto">
+            <mat-list-item *ngFor="let track of weeklyTopTracks; let i = index">
+              <div matListAvatar style="justify-self: center;width:40px;height:40px;border-radius: 5%;overflow: hidden">
+                <app-image [imageUrl]="track.image[2]['#text']"></app-image>
+              </div>
+              <span matLine style="font-size: 14px">{{track.name}}</span>
+              <span matLine *ngIf="track.artist!=null" style="font-size: 12px;color: rgba(0,0,0,.6);">{{track.artist.name}}</span>
+              <span matLine *ngIf="track.artist==null" style="font-size: 12px;color: rgba(0,0,0,.6);">Unknown</span>
+              <mat-divider></mat-divider>
+            </mat-list-item>
+          </mat-list>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+
+    <div class="main-grid-layout detail-container reco-container">
+      <mat-tab-group>
+        <mat-tab label="Top Artists">
+          <div style="display: flex;">
+            <div style="display: flex; align-items: center;justify-content: center; backdrop-filter: blur(10px); width: 20%; opacity: 0.54 ">
+              <button mat-icon-button (click)="onPreviousSearchPosition()">
+                <!-- <div mat-ink> -->
+                <mat-icon aria-label="play arrow" style="transform: scale(1.5);">keyboard_arrow_left</mat-icon>
+                <!-- </div> -->
+              </button>
+            </div>
+            <div #artistPanel class="scrolling-wrapper" style="overflow-y: auto;width: 100%">
+              <div class="card" *ngFor="let artist of atrists; let i = index" style="display: flex;flex-direction: column;align-items: center; width: 100%;overflow: hidden">
+                <div style="margin: 10px 10px 10px 10px;justify-self: center;width:100px;height:100px;border-radius: 50%;overflow: hidden; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
+                  <app-image [imageUrl]="artist.image[2]['#text']"></app-image>
+                </div>
+                <span *ngIf="artist.name!=null" style="font-size: 14px;">{{artist.name}}</span>
+                <span *ngIf="artist.name==null" style="font-size: 14px;">Unknown</span>
+              </div>
+            </div>
+            <div style="display: flex; align-items: center;justify-content: center; backdrop-filter: blur(10px); width: 20%; opacity: 0.54 ">
+              <button mat-icon-button (click)="onNextSearchPosition()">
+                <!-- <div mat-ink> -->
+                <mat-icon aria-label="play arrow" style="transform: scale(1.5);">keyboard_arrow_right</mat-icon>
+                <!-- </div> -->
+              </button>
+            </div>
+
+          </div>
+          <div style="margin: 10px 0px 0px 0px">
+            <div style="display: flex; align-items: center;">
+              <span style="font-size: 14px;padding: 0px 10px 0px 20px">Hot tracks from the artist</span>
+              <mat-icon aria-label="play arrow" style="color: red">whatshot</mat-icon>
+            </div>
+            <mat-list style="overflow-y: auto">
+              <mat-list-item *ngFor="let track of autoPlaylist; let i = index">
+                <div matListAvatar style="justify-self: center;width:40px;height:40px;border-radius: 5%;overflow: hidden">
+                  <app-image [imageUrl]="track.Image"></app-image>
+                </div>
+                <span matLine style="font-size: 14px">{{track.TrackName}}</span>
+                <span matLine *ngIf="track.Artist!=null" style="font-size: 12px;color: rgba(0,0,0,.6);">{{track.Artist}}</span>
+                <span matLine *ngIf="track.Artist==null" style="font-size: 12px;color: rgba(0,0,0,.6);">Unknown</span>
+                <mat-divider></mat-divider>
+              </mat-list-item>
+            </mat-list>
+          </div>
+
+        </mat-tab>
+        <mat-tab label="Suggestion">
+          <mat-list style="overflow-y: auto">
+            <mat-list-item *ngFor="let track of autoPlaylist; let i = index">
+              <div matListAvatar style="justify-self: center;width:40px;height:40px;border-radius: 5%;overflow: hidden">
+                <app-image [imageUrl]="track.Image"></app-image>
+              </div>
+              <span matLine style="font-size: 14px">{{track.TrackName}}</span>
+              <span matLine *ngIf="track.Artist!=null" style="font-size: 12px;color: rgba(0,0,0,.6);">{{track.Artist}}</span>
+              <span matLine *ngIf="track.Artist==null" style="font-size: 12px;color: rgba(0,0,0,.6);">Unknown</span>
+              <mat-divider></mat-divider>
+            </mat-list-item>
+          </mat-list>
+        </mat-tab>
+        <mat-tab label="Lyrics">
+          <iframe width="420" height="315" src="https://www.youtube.com/embed/tgbNymZ7vqY?html5=1" frameborder="0">
+          </iframe>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
   </div>
 </div>

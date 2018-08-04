@@ -2,26 +2,30 @@ import { PlayerService } from '../core/services/player.service';
 import { Playlist } from '../core/models/playlist';
 import { Track } from '../core/models/track';
 import { DatastoreService } from '../core/services/datastore.service';
-import { Component, OnInit, Input, ChangeDetectorRef, ViewChild, ElementRef, HostListener } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectorRef, ViewChild, ElementRef, HostListener, NgZone } from '@angular/core';
 import { PlaylistService } from '../core/services/playlist.service';
 import { AutoplayService } from '../core/services/autoplay.service';
 import { FilehandlingService } from '../core/services/filehandling.service';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatMenuTrigger } from '@angular/material';
+import { LibraryResolverService } from '../core/services/library-resolver.service';
+import { DatabaseService } from '../core/services/database.service';
 declare const window: any;
 const { shell } = window.require("electron").remote
 
 @Component({
   selector: 'app-tableview',
   templateUrl: './tableview.component.html',
-  styleUrls: ['./tableview.component.css']
+  styleUrls: ['./tableview.component.scss']
 })
 export class TableviewComponent implements OnInit {
 
-  @Input('isDisplayImage') isDisplayImage = false;
+  @Input('isDisplayImage') isDisplayImage = true;
+  @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
+  
   // @Input('selectedRowIndex') selectedRowIndex = -1;
   // @Output() playEvent = new EventEmitter();
 
-  public displayedColumns = ['Position', 'Name', 'Options'];
+  public displayedColumns = ['Position', 'Name', 'Album', 'Year','Options'];
 
   private noimage = 'assets/no-image.png';
   private tracks: Array<Track>;
@@ -41,16 +45,22 @@ export class TableviewComponent implements OnInit {
   private isShowDropZone = true;
   private isPaused = false;
 
+  private db;
+
+
+
   // datastoreService: DatastoreService;
 
   constructor(
-    private changeDetectorRefs: ChangeDetectorRef,
-    private playlistService: PlaylistService,
     private autoPlayService: AutoplayService,
     public datastoreService: DatastoreService,
     private playerService: PlayerService,
     private fileHandlingSerice: FilehandlingService,
     public snackBar: MatSnackBar,
+    private resolver: LibraryResolverService,
+    private playlistService: PlaylistService,
+    private dbService: DatabaseService,
+    private zone: NgZone
   ) {
 
   }
@@ -59,13 +69,9 @@ export class TableviewComponent implements OnInit {
     console.log(track.Selection)
   }
 
+ 
 
   ngOnInit() {
-
-    // this.changeDetectorRefs.detectChanges();
-    // this.datastoreService = new DatastoreService();
-    // this.datastoreService.loadTracks(this.playlistService.getMainLibrary().tracks)
-    // this.datastoreService.libTableData.subscribe(addedTracks => {
 
     // this.tracks = addedTracks;
     // console.log('inside table', this.tracks)
@@ -77,7 +83,7 @@ export class TableviewComponent implements OnInit {
     // });
 
     this.playerService.nowPlaying.subscribe((track: any) => {
-      this.nowPlayingTrackId = track._Id;
+      this.nowPlayingTrackId = track.id;
       // this.clickRowIndex = track.Position;
     });
 
@@ -86,18 +92,32 @@ export class TableviewComponent implements OnInit {
       // this.clickRowIndex = track.Position;
     });
 
-    this.playlistService.userPlaylistsSubject.subscribe(value => this.userPlaylists = value);
+    this.playlistService.getAllPlaylists().subscribe(playlists => {
+      this.zone.run(() => {
+        this.userPlaylists = playlists;
+      });
+    });
 
   }
 
-  ngOnDestroy() {
-    // this.datastoreService.libTableData.unsubscribe();
-    // this.playerService.nowPlaying.unsubscribe();
-    // this.playerService.playPause.unsubscribe();
+
+  onTableScroll(e) {
+    const tableViewHeight = e.target.offsetHeight // viewport: ~500px
+    const tableScrollHeight = e.target.scrollHeight // length of all table
+    const scrollLocation = e.target.scrollTop; // how far user scrolled
+    
+    // If the user has scrolled within 200px of the bottom, add more data
+    const buffer = 500;
+    const limit = tableScrollHeight - tableViewHeight - buffer;    
+    if (scrollLocation > limit) {
+      this.resolver.renderTable();
+    }
   }
 
   private handleRowClick(row, event) {
+    this.setSelectedTrack(row)
     this.clickRowIndex = row.Position;
+    // this.clickRowIndex = row._id;
     this.isSelectAll = false;
     if (event.shiftKey) {
       this.tracks.map((track: any) => {
@@ -117,13 +137,18 @@ export class TableviewComponent implements OnInit {
     this.shiftKeyFirstIndex = row.Position;
   }
 
-  private playTrack(row) {
+  onRightClick(e) {
+    this.trigger.openMenu();
+  }
+
+
+  public playTrack(row) {
     this.isPaused = false;
-    if (this.nowPlayingTrackId != '' && this.nowPlayingTrackId === row._Id) {
+    if (this.nowPlayingTrackId && this.nowPlayingTrackId === row.id) {
       this.playerService.play();
     } else {
       this.playerService.playNow(row)
-      this.nowPlayingTrackId = row._Id;
+      this.nowPlayingTrackId = row.id;
     }
   }
 
@@ -173,25 +198,25 @@ export class TableviewComponent implements OnInit {
     }
   }
 
-  private openSnackBar(plslst: Playlist, action: string) {
+  private openSnackBar(plylist, action: string) {
 
-    const theTrack = new Track(this.selectedTrack.Name);
-    theTrack.trackNumber = this.selectedTrack.TrackNumber;
-    theTrack.link = this.selectedTrack.Link;
-    theTrack.source = this.selectedTrack.Source;
-    theTrack.year = this.selectedTrack.Year
-    theTrack.album = this.selectedTrack.Album
-    theTrack.artist = this.selectedTrack.Artist;
-    theTrack.id = this.selectedTrack._Id
-    theTrack.image = this.selectedTrack.ImageUrl;
+    // const theTrack = new Track(this.selectedTrack.Name);
+    // theTrack.trackNumber = this.selectedTrack.TrackNumber;
+    // theTrack.link = this.selectedTrack.Link;
+    // theTrack.source = this.selectedTrack.Source;
+    // theTrack.year = this.selectedTrack.Year
+    // theTrack.album = this.selectedTrack.Album
+    // theTrack.artist = this.selectedTrack.Artist;
+    // theTrack.id = this.selectedTrack.id
+    // theTrack.image = this.selectedTrack.ImageUrl;
 
 
-    this.playlistService.addToPlaylist(theTrack, plslst).then((result) => {
+    this.playlistService.addToPlaylist(plylist, this.selectedTrack._id).then((result) => {
       this.showConfirmMessage('Track Added');
     }).catch((error) => {
-      console.log('error', error);
-      this.showConfirmMessage('Could not add track');
+      this.showConfirmMessage('Could not add track.');
     });
+
   }
 
   private showConfirmMessage(msg) {
@@ -221,11 +246,11 @@ export class TableviewComponent implements OnInit {
     } else {
       this.showConfirmMessage('Could not delete track.');
     }
-    const _mainLibrary = this.playlistService.deleteFromMainLibrary(this.selectedTrack)
-    this.datastoreService.loadTracks(_mainLibrary.tracks);
+    // const _mainLibrary = this.playlistService.deleteFromMainLibrary(this.selectedTrack)
+    // this.datastoreService.loadTracks(_mainLibrary.tracks);
   }
 
-  private setSelectedTrack(_track) {
+  public setSelectedTrack(_track) {
     this.selectedTrack = _track;
     this.setRating(_track.Rating);
   }
@@ -243,7 +268,8 @@ export class TableviewComponent implements OnInit {
   }
 
   trackByFn(index, item) {
-    return item.Position = index; 
+    item.Position = index
+    return item.Position;
   }
 
   @ViewChild('filter') filter: ElementRef;

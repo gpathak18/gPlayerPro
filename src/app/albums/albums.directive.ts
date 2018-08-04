@@ -41,9 +41,5 @@ export class MatchHeightDirective  {
         this.child.style.left = (0 - this.left) + 'px'
     }
 
-    // ngAfterViewChecked() {
-    //     console.log('here')
-    // }
-
 
 }

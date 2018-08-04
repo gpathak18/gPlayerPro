@@ -1,8 +1,11 @@
+import { Album } from "./album";
+
 export class Artist {
 
     private Id: string;
     private Name: string;
-    private ImageUrl: string;
+	private ImageUrl: string;
+	private Album: Album;
     private Link: string;
     private Source: string;
     private CompatibleSources: string

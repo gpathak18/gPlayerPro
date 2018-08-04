@@ -1,0 +1,42 @@
+{
+  "title": "Album Schema",
+  "type": "object",
+  "version": 0,
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "AlbumName": {
+      "type": "string"
+    },
+    "AlbumImage": {
+      "type": "string"
+    },
+    "Artist": {
+      "type": "string"
+    },
+    "Tracks": {
+      "type": "array",
+      "ref": "track",
+      "items": {
+        "type": "string"
+      }
+    },
+    "Year": {
+      "type": "string"
+    },
+    "Link": {
+      "type": "string"
+    },
+    "Source": {
+      "type": "string"
+    },
+    "Selection": {
+      "type": "string"
+    }
+  ,
+  "attachments": {
+    "encrypted": false 
+  }}
+
+}

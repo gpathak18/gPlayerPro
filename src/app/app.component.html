@@ -15,8 +15,23 @@
 
 <div class="root-container">
   <header class="header-container">
-    <input type="search" placeholder="Find your music" style="justify-self: center;align-self: center;">
-    <!-- <mat-icon style="justify-self: end;align-self: center;">menu</mat-icon> -->
+    <!-- <input type="search" placeholder="Find your music" style="justify-self: center;align-self: center;"> -->
+    <mat-form-field style="width: 50%; margin: 0px 10px 0px 0px" [floatLabel]="never">
+      <input style="caret-color: whitesmoke" type="text" placeholder="Search" matInput [formControl]="myControl" [matAutocomplete]="auto" [(ngModel)]="value" (keyup)="search($event)">
+      <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+        <mat-icon style="color: whitesmoke">close</mat-icon>
+      </button>
+      <button mat-button *ngIf="value===''" matSuffix mat-icon-button aria-label="Search">
+        <mat-icon style="color: whitesmoke">search</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let option of options" [value]="option">{{option}}</mat-option>
+    </mat-autocomplete>
+
+
+
   </header>
   <app-tab class="nav-bar"></app-tab>
 
@@ -26,6 +41,6 @@
 
   <!-- Footer -->
   <footer class="footer-container-main">
-     <app-footer style="display: grid; grid-template-columns: 100%"></app-footer>
+    <app-footer style="display: grid; grid-template-columns: 100%"></app-footer>
   </footer>
 </div>

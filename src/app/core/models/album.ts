@@ -2,8 +2,10 @@ import {Track} from './track';
 
 export class Album {
 
-    private Id: string;
-    private Name: string;
+    private _id: string;
+	private Name: string;
+	private AlbumName: string;
+	private DocType: string = "Album";
     private ImageUrl: string;
     private Link: string;
 	private Source: string;
@@ -14,7 +16,7 @@ export class Album {
 
     constructor(name: string){
         this.Name = name;
-        this.Id = name;
+        this.AlbumName = name;
     }
 
 	public get indexz(): string {
@@ -42,11 +44,11 @@ export class Album {
 	}
 
 	public get id(): string {
-		return this.Id;
+		return this._id;
 	}
 
 	public set id(value: string) {
-		this.Id = value;
+		this._id = value;
 	}
 
 	public get name(): string {

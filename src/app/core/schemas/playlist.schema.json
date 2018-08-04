@@ -1,0 +1,26 @@
+{
+  "title": "Playlist schema",
+  "version": 0,
+  "type": "object",
+  "properties": {
+    "DocType": {
+      "type": "string"
+    },
+    "PlaylistName": {
+      "type": "string"
+    },
+    "PlaylistImage": {
+      "type": "string"
+    },
+    "Tracks": {
+      "type": "array",
+      "ref": "track",
+      "items": {
+        "type": "string"
+      }
+    },
+    "Source": {
+      "type": "string"
+    }
+  }
+}

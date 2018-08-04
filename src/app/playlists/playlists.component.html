@@ -4,20 +4,36 @@
       <mat-list-item>
         <input class="input-style" placeholder="Create Playlist" [(ngModel)]="playlistname" type="text" (keyup.enter)="addPlaylist($event)">
       </mat-list-item>
-      <mat-list-item class="playlist-item-style" *ngFor="let playlist of playLists" [id]="playlist.Name" (mouseenter)="playlist.IsHidden=true"
+      <mat-list-item class="playlist-item-style" *ngFor="let playlist of playLists" [id]="playlist._id" (mouseenter)="playlist.IsHidden=true"
         (mouseleave)="playlist.IsHidden=false" (click)="selectedPlylst($event)" (dblclick)="playPlaylist($event)">
         <div class="mat-list-items">
           <!-- <mat-icon matListIcon class="icon-style">playlist</mat-icon> -->
-          <div class="div-text">{{playlist.Name}}</div>
-          <mat-icon *ngIf="playlist.IsHidden" [id]="playlist.Name" (click)="deletePlaylist($event)">close</mat-icon>
+          <div class="div-text">{{playlist. PlaylistName}}</div>
+          <mat-icon *ngIf="playlist.IsHidden" [id]="playlist._id" (click)="deletePlaylist($event)">close</mat-icon>
         </div>
       </mat-list-item>
     </mat-list>
   </div>
-  <div class="headerDivider"></div>
-  <div style="background: whitesmoke"> 
-    <app-tableview class="player-table-view"></app-tableview>
+  <div class="headerDivider">
+    <mat-list #albumTracks style="height: inherit;">
+      <mat-list-item [ngClass]="{'clicked-row': clickRowIndex===i, 'list-item-style': clickRowIndex!==i}" 
+      *ngFor="let track of currentTracks; let i = index" (click)="setSelectedTrack(track,i)"> 
+        <div style="display: grid; grid-template-columns: 30px auto;">
+          <div class="album-text" style="align-self: center">{{i+1}}</div>
+          <div style="align-self: center;font-size: 14px">
+            <span style="margin: 10px">{{track.TrackName}}</span>
+            <br>
+            <span *ngIf="track.TrackName.length<50 && track.Artist!=null" style="margin: 10px;font-size: 12px;color: darkgrey">{{track.Artist}}</span>
+          </div>
+        </div>
+        <mat-divider [inset]="true" *ngIf="!last"></mat-divider>
+      </mat-list-item>
+    </mat-list>
   </div>
+  <!-- <div style="background: whitesmoke"> 
+    <app-tableview class="player-table-view"></app-tableview>
+
+  </div> -->
 </div>
 
 <!-- <mat-menu #menu="matMenu" style="font-size: 10px">

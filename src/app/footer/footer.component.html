@@ -1,10 +1,12 @@
 <div class="footer-container">
+  <mat-progress-bar style="position: absolute;background: yellow" *ngIf="uploadProgress>0" mode="determinate" [value]="uploadProgress"></mat-progress-bar>
   <div class="player-menu">
     <!-- <button mat-menu-item (click)="file.click()">
       <mat-icon aria-label="open folder">create_new_folder</mat-icon>
     </button> -->
+    <input type="file" #file style="display:none" (change)='changeListener($event)' name="files[]" accept="audio/*" multiple/>
     <button mat-icon-button>
-      <mat-icon aria-label="open folder" class="mat-icon-style">repeat</mat-icon>
+      <mat-icon aria-label="open folder" class="mat-icon-style" (click)="check()">repeat</mat-icon>
     </button>
     <button mat-icon-button>
       <mat-icon aria-label="open folder" class="mat-icon-style">shuffle</mat-icon>
@@ -30,7 +32,7 @@
     <button mat-icon-button>
       <mat-icon aria-label="open folder" class="mat-icon-style">skip_previous</mat-icon>
     </button>
-    <button mat-mini-fab style="background: #ffd561">
+    <button mat-mini-fab style="background: #ffd561" (click)="togglePlayPauseState()">
       <mat-icon aria-label="open folder" style="color: #3e3e3e">play_arrow</mat-icon>
     </button>
     <button mat-icon-button class="mat-icon-style">

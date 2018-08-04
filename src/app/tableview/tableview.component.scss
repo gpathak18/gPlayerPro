@@ -1,3 +1,5 @@
+
+
 .mat-table {
   overflow: auto;
   max-height: 100%;
@@ -15,7 +17,17 @@
 }
 
 .mat-cell-song {
-  flex-grow: 15;
+  flex-grow: 12;
+  cursor: default;
+}
+
+.mat-cell-al {
+  flex-grow: 18;
+  cursor: default;
+}
+
+.mat-cell-yr {
+  flex-grow: 2;
   cursor: default;
 }
 
@@ -38,7 +50,8 @@
 }
 
 .grid-layout-two-columns {
-  grid-template-columns: 10% 90%;
+  grid-template-columns: 100%;
+  // grid-template-columns: 10% 90%;
 }
 
 .clicked-row {

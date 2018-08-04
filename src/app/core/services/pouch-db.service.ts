@@ -17,9 +17,11 @@ export class PouchDbService {
     PouchDB.plugin(PouchdbFind);
     if (!this.isInstantiated) {
       this.database = new PouchDB(this.DB_NAME, { auto_compaction: true});
+
       this.database.createIndex({
-        index: {fields: ['Album']}
+        index: {fields: ['AlbumName','DocType']}
       });
+
       this.isInstantiated = true;
     }
   }
@@ -30,6 +32,22 @@ export class PouchDbService {
 
   public get(id: string) {
     return this.database.get(id);
+  }
+
+  /**
+   * Get album by its name.
+   * @param album 
+   */
+  public getAlbumByName(album: string) {
+    return this.database.find({
+      selector: {AlbumName: album}
+    });
+  }
+
+  public getAllAlbumsSortAsc(){
+    return this.database.find({
+      selector: {DocType: 'Album'}
+    });
   }
 
   public delete(id: string) {
@@ -54,7 +72,6 @@ export class PouchDbService {
   }
 
   public getAlbumTracks(album) {
-    console.log("here db")
     return this.database.find({
       selector: {Album: "NewAlbum"}
     });

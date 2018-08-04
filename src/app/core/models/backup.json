@@ -1,0 +1,36 @@
+{
+  "id": "abc",
+  "TrackName": "ABC",
+  "Duration": 0,
+  "Year": 0,
+  "Album": "ABC",
+  "Artist": "ABC",
+  "Artists": [
+    {
+      "Role": "abc",
+      "Artist": "abc"
+    }
+  ],
+  "ReleaseDate": "abc",
+  "TrackNumber": 0,
+  "IExplicit": false,
+  "Genres": [
+    "abc"
+  ],
+  "Subgenres": [
+    "abc"
+  ],
+  "Rights": [
+    "abc"
+  ],
+  "Subtitle": "abc",
+  "Image": "abc",
+  "Link": "abc",
+  "Source": "abc",
+  "Rating": 0,
+  "Lyrics": "abc"
+}
+
+
+
+

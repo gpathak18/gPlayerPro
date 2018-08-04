@@ -2,7 +2,7 @@
   <div>
     <mat-list class="mat-list-style">
       <mat-list-item>
-        <input class="input-style" placeholder="Filter Artists" [(ngModel)]="playlistname" type="text" (keyup.enter)="addPlaylist($event)">
+        <input class="input-style" placeholder="Filter Artists"  type="text" >
       </mat-list-item>
       <mat-list-item mat-ink-ripple class="playlist-item-style" *ngFor="let artist of artists" [id]="artist.id">
         <!-- <mat-icon matListIcon class="icon-style">{{artist.name}}</mat-icon> -->

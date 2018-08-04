@@ -1,0 +1,92 @@
+{
+  "title": "Track schema",
+  "type": "object",
+  "version": 0,
+  "disableKeyCompression": true,
+  "properties": {
+    "TrackName": {
+      "type": "string",
+      "index":true
+    },
+    "DocType": {
+      "type": "string"
+    },
+    "Duration": {
+      "type": "string"
+    },
+    "Year": {
+      "type": "string"
+    },
+    "Album": {
+      "type": "string"
+    },
+    "AlbumId": {
+      "type": "string"
+    },
+    "Artist": {
+      "type": "string"
+    },
+    "Artists": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Role": {
+            "type": "string"
+          },
+          "Artist": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "ReleaseDate": {
+      "type": "string"
+    },
+    "TrackNumber": {
+      "type": "string"
+    },
+    "IExplicit": {
+      "type": "boolean"
+    },
+    "Genres": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "Subgenres": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "Rights": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "Subtitle": {
+      "type": "string"
+    },
+    "Image": {
+      "type": "string"
+    },
+    "Link": {
+      "type": "string"
+    },
+    "Source": {
+      "type": "string"
+    },
+    "Rating": {
+      "type": "string"
+    },
+    "Lyrics": {
+      "type": "string"
+    }
+  },
+  "attachments": {
+    "encrypted": false 
+  }
+}

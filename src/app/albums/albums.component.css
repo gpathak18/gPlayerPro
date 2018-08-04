@@ -20,8 +20,8 @@
 .image-container {
   width: calc(100vw - 700px);
   height: calc(100vw - 700px);
-  max-height: 350px;
-  max-width: 350px;
+  max-height: 300px;
+  max-width: 300px;
   box-shadow: 0 8px 6px -10px black;
   overflow: hidden;
   border-radius: 10px;
@@ -66,7 +66,7 @@
   overflow-x: hidden;
   height: calc(100vh - 192px);
   padding: 10px;
-  
+  -webkit-overflow-scrolling: touch;
 }
 
 .card-wrapper {
@@ -74,18 +74,20 @@
   z-index: 0;
   border-radius: 5px;
   padding: 10px;
+  position: relative;
+  will-change: filter;
 }
-
-
-
 
 .album-detail {
   position: relative;
-  background-color: whitesmoke;
+  /* background-color: whitesmoke; */
+  background: linear-gradient(to top, #FDFFFC, #FDFFFC); 
   width: calc(100vw);
   height: 100%;
   margin-top: 5px;
-  box-shadow: 0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12);
+  /* box-shadow: 0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12); */
+
+  box-shadow:        inset  0  8px 8px -8px #696868, inset  0 -8px 8px -8px #696868;
 }
 
 .shadow {

@@ -1,6 +1,5 @@
 import { Component, OnInit, ElementRef, ViewChild, Input } from '@angular/core';
 import { PlayerService } from '../core/services/player.service';
-import * as d3 from 'd3';
 import { FormControl } from '@angular/forms';
 import { startWith, map } from 'rxjs/operators';
 import { UiService } from '../core/services/ui.service';

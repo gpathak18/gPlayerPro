@@ -3,11 +3,11 @@ import { trigger, animate, style, group, animateChild, query, stagger, transitio
 export const accordionTransition =
     trigger('flipStateTrigger', [
         transition('true => void', [
-            style({ height: '*' }),
-            animate('100ms ease-in', style({ height: 0 }))
+            style({ transform: 'scaleY(1)' }),
+            animate('100ms ease-in', style({ transform: 'scaleY(0)' }))
         ]),
         transition('void => true', [
-            style({ height: 0 }),
-            animate('200ms', style({ height: '*' }))
+            style({ transform: 'scaleY(0)' }),
+            animate('200ms ease-out', style({ transform: 'scaleY(1)' }))
         ])
     ])

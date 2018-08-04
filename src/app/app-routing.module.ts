@@ -8,12 +8,16 @@ import { AlbumsComponent } from './albums/albums.component';
 import { ArtistsComponent } from './artists/artists.component';
 import { PlaylistsComponent } from './playlists/playlists.component';
 import { SettingsComponent } from './settings/settings.component';
+import { LibraryResolverService } from './core/services/library-resolver.service';
+import { AlbumResolverService } from './core/services/album-resolver.service';
+import { TableviewComponent } from './tableview/tableview.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/player',pathMatch: 'full' },
+  { path: 'files',  loadChildren: '../app/file-handler/file-handler.module#FileHandlerModule'},
   { path: 'player', component: PlayerComponent, data: { state: 'player'} },
-  { path: 'allmusic', component: AllmusicComponent, data: { state: 'allmusic'} }, 
-  { path: 'albums', component: AlbumsComponent, data: { state: 'albums'}  },
+  { path: 'allmusic', component: TableviewComponent, resolve: { allmusic: LibraryResolverService }, data: { state: 'allmusic'} }, 
+  { path: 'albums', component: AlbumsComponent,  resolve: { album: AlbumResolverService }, data: { state: 'albums'}  },
   { path: 'artists', component: ArtistsComponent, data: { state: 'artists'}  },
   { path: 'playlists', component: PlaylistsComponent, data: { state: 'playlists'} },
   { path: 'radio', component: PlaylistsComponent, data: { state: 'radio'} },
@@ -21,7 +25,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {useHash: true})],
   // imports: [RouterModule.forRoot(routes,{ enableTracing: true })],
   exports: [RouterModule]
 })

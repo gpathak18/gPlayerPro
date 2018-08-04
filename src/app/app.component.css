@@ -7,23 +7,27 @@
 }
 
 .header-container {
-  display: grid;
-  grid-template-columns: 100%;
-  grid-template-rows: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
   background: #3e3e3e;
   z-index: 102;
 }
 
 .nav-bar {
   z-index: 101;
-  box-shadow: 0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12);
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2),
+    0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12);
 }
 .main-container {
   z-index: 100;
   position: relative;
   overflow: hidden;
   -webkit-app-region: no-drag;
-
 }
 
 .footer-container-main {
@@ -36,13 +40,34 @@
   z-index: 102;
 }
 
-input[type=search] {
-  padding: 5px;
-  border: 0px solid #ccc;
-  -webkit-border-radius: 5px;
-  border-radius: 2px;
-  width: 40%;
-  height: 25px;
+input[type="text"] {
   -webkit-app-region: no-drag;
-  background: whitesmoke;
+  color: whitesmoke;
+  font-size: 14px;
+  font-style: normal;
 }
+
+:host/deep/  .mat-form-field-underline {
+  background-color: #ffd561;
+  opacity: 0.89;
+}
+
+/* :host/deep/  .mat-form-field-infix {
+  border-top: none;
+} */
+
+/* :host/deep/  .mat-form-field-flex {
+  height: 40px;
+} */
+
+:host/deep/ .mat-form-field-label {
+  color: darkgray;
+  opacity: 0.54;
+  /* font-size: 14px; */
+  font-style: normal;
+  align-self: center;
+}
+
+/* :host/deep/ .mat-form-field-label-wrapper {
+  top: -6.9
+} */

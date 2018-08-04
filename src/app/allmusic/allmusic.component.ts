@@ -1,31 +1,32 @@
-import {PlaylistService} from '../core/services/playlist.service';
-import {DatastoreService} from '../core/services/datastore.service';
-import { Component, OnInit } from '@angular/core';
+import { PlaylistService } from '../core/services/playlist.service';
+import { DatastoreService } from '../core/services/datastore.service';
+import { Component, OnInit, NgZone, AfterViewInit, HostListener } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
+import { DatabaseService } from '../core/services/database.service';
+import { RxDocument } from 'rxdb';
+import { accordionTransition } from '../core/animations/accordion.animation';
 
 @Component({
   selector: 'app-allmusic',
   templateUrl: './allmusic.component.html',
   styleUrls: ['./allmusic.component.css']
 })
-export class AllmusicComponent implements OnInit {
+export class AllmusicComponent implements AfterViewInit {
 
-  constructor( 
-    private playlistService: PlaylistService,
-    private datastoreService: DatastoreService,  
-    private router: Router
-  ) { 
-      this.router.events.subscribe((event: any) => {
-        if (event instanceof NavigationEnd) {
-          if(event.urlAfterRedirects === '/allmusic') {
-            this.datastoreService.loadTracks(this.playlistService.getMainLibrary().tracks);
-          }
-        }
-      });
-    }
-
-  ngOnInit() {
+  constructor() {
 
   }
+
+  ngOnInit() {
+  }
+
+  ngAfterViewInit() {
+
+  }
+
+  ngOnDestroy() {
+   
+  }
+
 
 }
