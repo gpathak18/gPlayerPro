@@ -14,7 +14,7 @@ import { Router, NavigationEnd } from "@angular/router";
 })
 export class PlaylistsComponent implements OnInit {
   public playLists = new Array();
-  private currentTracks = new Array();
+  public currentTracks = new Array();
   public playlistName: string;
   public playlistname = "";
   public options = false;
@@ -78,7 +78,7 @@ export class PlaylistsComponent implements OnInit {
     console.log(this.playLists);
   }
 
-  private selectedPlylst($event) {
+  public selectedPlylst($event) {
     const id = $event.currentTarget.id;
     const plylist: any = this.playLists.find((value: any) => value._id === id);
     this.playlistService

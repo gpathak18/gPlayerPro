@@ -101,13 +101,13 @@
 }
 
 .blurred {
-  animation-name: blur;
+  /* animation-name: blur; */
   animation-duration: 100ms;
   animation-fill-mode: forwards;
 }
 
 .nonblurred {
-  animation-name: nonblur;
+  /* animation-name: nonblur; */
   animation-duration: 100ms;
   animation-fill-mode: forwards;
 }

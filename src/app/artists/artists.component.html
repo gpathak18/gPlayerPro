@@ -4,21 +4,21 @@
       <mat-list-item>
         <input class="input-style" placeholder="Filter Artists"  type="text" >
       </mat-list-item>
-      <mat-list-item mat-ink-ripple class="playlist-item-style" *ngFor="let artist of artists" [id]="artist.id">
+      <mat-list-item mat-ink-ripple class="playlist-item-style" *ngFor="let artist of artists" [id]="artist._id" (click)="flattenArtist($event)">
         <!-- <mat-icon matListIcon class="icon-style">{{artist.name}}</mat-icon> -->
-        {{artist.name}}
+        <div class="div-text">{{artist.ArtistName}}</div>
       </mat-list-item>
     </mat-list>
   </div>
   <div class="grid-layout-detail">
     <div class="div-text grid-layout-header">
-      <div>
-        <div>
-          <span style="font-size: 36px; font-weight: 500; margin: 0px 0px 10px 0px">A. R. Rehman</span>
+      <div style="display: flex; flex-direction: column;margin: 20px 20px 20px 20px;min-width: 100%">
+        <div class="div-text" style="font-size: 36px; font-weight: 500; margin: 0px 0px 10px 0px"> 
+          {{selectedArtistName}}
         </div>
         <div style="margin: 5px 0px 0px 0px">
-          <span>2 Albums
-            <span class="dot"></span> 6 Songs
+          <span>{{totalSelArtistAlbums}} Albums
+            <span class="dot"></span> {{totalSelArtistTracks}} Songs
             <span class="dot"></span> 42 Hours</span>
         </div>
       </div>
@@ -29,8 +29,8 @@
       </div>
       <mat-divider></mat-divider>
     </div>
-    <div>
-        <app-album-detail></app-album-detail>
+    <div style="overflow-y: auto"> 
+        <app-album-detail [album]="album" *ngFor="let album of artistAlbums; let i = index" style="margin: 0px 0px 20px 0px"></app-album-detail>
     </div>
   </div>
 </div>

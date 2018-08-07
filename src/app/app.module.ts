@@ -27,7 +27,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CustomReuseStrategy } from './reuse-strategy';
 import { ArtistsComponent } from './artists/artists.component';
 import { PlaylistsComponent } from './playlists/playlists.component';
-import { MatRippleModule, MatButtonModule, MatListModule, MatTableModule, MatMenuModule, MatSnackBarModule, MatButtonToggleModule, MatSliderModule, MatSlideToggleModule, MatProgressBarModule, MatCardModule, MatChipsModule, MatAutocompleteModule, MAT_CHIPS_DEFAULT_OPTIONS, MatBadgeModule } from '@angular/material';
+import { MatRippleModule, MatButtonModule, MatListModule, MatTableModule, MatMenuModule, MatSnackBarModule, MatButtonToggleModule, MatSliderModule, MatSlideToggleModule, MatProgressBarModule, MatCardModule, MatChipsModule, MatAutocompleteModule, MAT_CHIPS_DEFAULT_OPTIONS, MatBadgeModule, MatCheckboxModule } from '@angular/material';
 import { MatchHeightDirective } from './albums/albums.directive';
 import { UiService } from './core/services/ui.service';
 import { EqualizerComponent } from './equalizer/equalizer.component';
@@ -88,7 +88,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatChipsModule,
     ReactiveFormsModule,
     MatAutocompleteModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatCheckboxModule
   ],
   providers: [
     ArtistService,

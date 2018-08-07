@@ -2,6 +2,7 @@
   "title": "Artist Schema",
   "type": "object",
   "version": 0,
+  "disableKeyCompression": true,
   "properties": {
     "id": {
       "type": "string"
@@ -14,9 +15,24 @@
     },
     "Albums": {
       "type": "array",
-      "ref": "album",
       "items": {
-        "type": "string"
+        "type": "object",
+        "properties": {
+          "Album": {
+            "ref": "album",
+            "type":"string"
+          },
+          "AlbumName" : {
+            "type":"string"
+          },
+          "Tracks": {
+            "type": "array",
+            "ref": "track",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
       }
     },
     "Link": {

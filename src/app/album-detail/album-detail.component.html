@@ -1,23 +1,31 @@
 <div class="main-grid-layout">
   <div class="main-grid-layout image-container">
-    <!-- {{album.Name}} -->
-    Thriller
+    <div style="width: 100%;display: flex;justify-content: center;">
+      <img [src]="AlbumImage" alt="..." *ngIf="AlbumImage && AlbumImage != 'None'"  style="width: 100px;height: 100px; border-radius: 5px;">
+      <img [src]="noimage" alt="..."  *ngIf="AlbumImage && AlbumImage === 'None'" style="width: 100px;height: 100px; border-radius: 5px;">
+      <!-- <div class="play-album">
+        <button mat-fab color="white">
+          <mat-icon aria-label="play arrow">play_arrow</mat-icon>
+        </button>
+      </div> -->
+    </div>
   </div>
   <div class="main-grid-layout detail-container">
     <div class="detail-container detail-header">
-      Thriller
-      <mat-divider></mat-divider>
+      {{album.AlbumName}}
+      <mat-divider style="margin: 10px 0px 0px 0px"></mat-divider>
     </div>
-    <mat-list dense class="detail-container detail-body">
-      <mat-list-item *ngFor="let track of currentTracks; let i = index">
-        <div style="display: grid; grid-template-columns: 30px auto; height: 80px;">
+    <mat-list style="height: inherit;">
+      <mat-list-item *ngFor="let track of tracks; let i = index">
+        <div style="display: grid; grid-template-columns: 30px auto;">
           <div class="album-text" style="align-self: center">{{i+1}}</div>
           <div style="align-self: center;font-size: 14px">
-            <span style="margin: 10px">{{track.Name}}</span>
+            <span style="margin: 10px">{{track.TrackName}}</span>
             <br>
-            <span *ngIf="track.Name.length<50 && track.Artist!=null" style="margin: 10px;font-size: 12px;color: darkgrey">{{track.Artist}}</span>
+            <span *ngIf="track.TrackName.length<50 && track.Artist!=null" style="margin: 10px;font-size: 12px;color: darkgrey">{{track.Artist}}</span>
           </div>
         </div>
+        <mat-divider [inset]="true" *ngIf="!last"></mat-divider>
       </mat-list-item>
     </mat-list>
   </div>

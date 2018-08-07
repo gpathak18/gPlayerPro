@@ -76,7 +76,7 @@ export class FooterComponent implements OnInit {
 
   check(){
     // this.input.nativeElement.click()
-    this.oauthService.initImplicitFlow();
+    // this.oauthService.initImplicitFlow();
     ipcRenderer.send('OpenFileDialog', 'OpenFileDialog')
     // ipcRenderer.on('got-window', (event, arg) => {
     //   console.log(arg)

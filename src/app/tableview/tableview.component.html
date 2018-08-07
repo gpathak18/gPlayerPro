@@ -1,24 +1,24 @@
 <mat-table #table [dataSource]="datastoreService" [trackBy]="trackByFn" (scroll)="onTableScroll($event)">
   <ng-container matColumnDef="Position">
-    <mat-header-cell *matHeaderCellDef class="mat-cell-sn"> No. </mat-header-cell>
-    <mat-cell *matCellDef="let track;let i = index; " class="mat-cell-sn">
+    <mat-header-cell *matHeaderCellDef class="mat-cell-position"> No. </mat-header-cell>
+    <mat-cell *matCellDef="let track;let i = index; " class="mat-cell-position">
       <div *ngIf="track.Position != hoverRowIndex;then trackPosition else playButton"></div>
       <ng-template #playButton>
         <div *ngIf="nowPlayingTrackId != track._id; then playIcon else pauseIcon"></div>
         <ng-template #playIcon>
-          <button id="play-circle-button" mat-icon-button style="margin-left: -12px" (click)="playTrack(track)">
+          <button id="play-circle-button" mat-button matSuffix mat-icon-button style="margin-left: -12px" (click)="playTrack(track)">
             <mat-icon>play_circle_outline</mat-icon>
           </button>
         </ng-template>
         <ng-template #pauseIcon>
           <div *ngIf="!isPaused; then pIcon else plIcon"></div>
           <ng-template #pIcon>
-            <button id="pause-circle-button" mat-icon-button style="margin-left: -12px" (click)="pauseTrack()">
+            <button id="pause-circle-button" mat-button matSuffix mat-icon-button style="margin-left: -12px" (click)="pauseTrack()">
               <mat-icon>pause_circle_outline</mat-icon>
             </button>
           </ng-template>
           <ng-template #plIcon>
-            <button id="pause-circle-button" mat-icon-button style="margin-left: -12px" (click)="playTrack(track)">
+            <button id="pause-circle-button" mat-button matSuffix mat-icon-button style="margin-left: -12px" (click)="playTrack(track)">
               <mat-icon>volume_mute</mat-icon>
             </button>
           </ng-template>
@@ -31,11 +31,26 @@
     </mat-cell>
   </ng-container>
 
+  <ng-container matColumnDef="Select">
+      <mat-header-cell class="mat-cell-selection" mat-header-cell *matHeaderCellDef >
+        <mat-checkbox (change)="$event ? masterToggle() : null"
+                      [checked]="selection.hasValue() && isAllSelected()"
+                      [indeterminate]="selection.hasValue() && !isAllSelected()">
+        </mat-checkbox>
+      </mat-header-cell>
+      <mat-cell class="mat-cell-selection" mat-cell *matCellDef="let row">
+        <mat-checkbox (click)="$event.stopPropagation()"
+                      (change)="$event ? selection.toggle(row) : null"
+                      [checked]="selection.isSelected(row)">
+        </mat-checkbox>
+      </mat-cell>
+    </ng-container>
 
   <ng-container matColumnDef="Name">
-    <mat-header-cell *matHeaderCellDef mat-sort-header class="mat-cell-song" style="margin-left: 10px">Name</mat-header-cell>
-    <mat-cell *matCellDef="let track;" class="mat-cell-song">
-      <div class="grid-layout" [ngClass]="{'grid-layout-two-columns': isDisplayImage}" [matMenuTriggerFor]="menu">
+    <mat-header-cell *matHeaderCellDef mat-sort-header class="mat-cell-song">Name</mat-header-cell>
+    <mat-cell class="mat-cell-song" *matCellDef="let track;" class="mat-cell-song" (contextmenu)="onRightClick(track, $event)">
+      <span style="position: absolute;" [matMenuTriggerFor]="menu" [style.left.px]="menuLeft" [style.top.px]="menuTop"></span>
+      <div class="grid-layout" [ngClass]="{'grid-layout-two-columns': isDisplayImage}">
         <!-- <div *ngIf="isDisplayImage===true" style="justify-self: center;width:42px;height:42px;border-radius: 5%;overflow: hidden">
           <app-image [imageUrl]="track.Image" ></app-image>
         </div> -->
@@ -49,35 +64,58 @@
   </ng-container>
 
   <ng-container matColumnDef="Album">
-    <mat-header-cell *matHeaderCellDef class="mat-cell-al"> Album </mat-header-cell>
-    <mat-cell *matCellDef="let row" class="mat-cell-al">
+    <mat-header-cell *matHeaderCellDef class="mat-cell-album"> Album </mat-header-cell>
+    <mat-cell class="mat-cell-album" *matCellDef="let row" (contextmenu)="onRightClick(row, $event)">
+      <span style="position: absolute;" [matMenuTriggerFor]="menu" [style.left.px]="menuLeft" [style.top.px]="menuTop"></span>
       <div style="align-self: center">
         <span>{{row.Album}}</span>
       </div>
     </mat-cell>
   </ng-container>
 
+  <ng-container matColumnDef="Time">
+    <mat-header-cell class="mat-cell-time" *matHeaderCellDef> Time </mat-header-cell>
+    <mat-cell class="mat-cell-time" *matCellDef="let row" (contextmenu)="onRightClick(row, $event)">
+      <span style="position: absolute;" [matMenuTriggerFor]="menu" [style.left.px]="menuLeft" [style.top.px]="menuTop"></span>
+      <div style="align-self: center">
+        <span>{{row.Duration}}</span>
+      </div>
+    </mat-cell>
+  </ng-container>
+
   <ng-container matColumnDef="Year">
-    <mat-header-cell *matHeaderCellDef class="mat-cell-yr"> Year </mat-header-cell>
-    <mat-cell *matCellDef="let row" class="mat-cell-yr">
+    <mat-header-cell class="mat-cell-year" *matHeaderCellDef> Year </mat-header-cell>
+    <mat-cell class="mat-cell-year" *matCellDef="let row" (contextmenu)="onRightClick(row, $event)">
+      <span style="position: absolute;" [matMenuTriggerFor]="menu" [style.left.px]="menuLeft" [style.top.px]="menuTop"></span>
       <div style="align-self: center">
         <span>{{row.Year}}</span>
       </div>
     </mat-cell>
   </ng-container>
 
-  <ng-container matColumnDef="Options">
-    <mat-header-cell *matHeaderCellDef class="mat-cell-op"> Options </mat-header-cell>
-    <mat-cell *matCellDef="let row" class="mat-cell-op">
-      <!-- <button mat-icon-button [matMenuTriggerFor]="menu" (click)="setSelectedTrack(row)">
-        <mat-icon>more_vert</mat-icon>
-      </button> -->
+  <ng-container matColumnDef="Rating">
+    <mat-header-cell class="mat-cell-rating" *matHeaderCellDef> Rating </mat-header-cell>
+    <mat-cell class="mat-cell-rating" *matCellDef="let row" (contextmenu)="onRightClick(row, $event)">
+      <span style="position: absolute;" [matMenuTriggerFor]="menu" [style.left.px]="menuLeft" [style.top.px]="menuTop"></span>
+      <div *ngIf="row.Rating; then rating else norating"></div>
+      <ng-template #rating>
+        <div style="align-self: center;display: flex;flex-direction: row;justify-content: center;align-items: center;">
+          <span>{{row.Rating}}</span>
+          <mat-icon style="opacity: 0.89; transform: scale(0.7);">star</mat-icon>
+        </div>
+      </ng-template>
+      <ng-template #norating>
+        <div style="align-self: center;display: flex;flex-direction: row;justify-content: center;align-items: center;">
+          <span>0</span>
+          <mat-icon style="opacity: 0.89; transform: scale(0.7);">star</mat-icon>
+        </div>
+      </ng-template>
     </mat-cell>
   </ng-container>
 
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'clicked-row': clickRowIndex===row.Position, 'table-row-style': clickRowIndex!==row.Position}"
-    (mouseenter)="hoverRowIndex=row.Position" (click)="handleRowClick(row,$event)" (dblclick)="playTrack(row)" (contextmenu)="onRightClick($event)">
+  <mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'clicked-row': clickRowIndex===row.Position , 'table-row-style': clickRowIndex!==row.Position}"
+    (mouseenter)="hoverRowIndex=row.Position" (click)="handleRowClick(row,$event)" (dblclick)="playTrack(row)">
   </mat-row>
 </mat-table>
 
@@ -107,7 +145,7 @@
     <mat-divider></mat-divider>
     <div>
       <button mat-icon-button *ngFor="let star of stars; let i = index" style="width:35px;">
-        <mat-icon class="menu-icon" (mouseenter)="setRating(i)" (mouseleave)="resetRating(i)" (click)="setRating(i)" style="margin-right: 0px">{{star}}</mat-icon>
+        <mat-icon class="menu-icon" (mouseenter)="setRating(i+1)" (mouseleave)="resetRating(i+1)" (click)="setRating(i+1)" style="margin-right: 0px">{{star}}</mat-icon>
       </button>
     </div>
   </ng-template>

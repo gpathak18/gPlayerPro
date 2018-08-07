@@ -1,38 +1,39 @@
 
-
 .mat-table {
   overflow: auto;
   max-height: 100%;
   border-radius: 0px 0px 0px 0px;
   background: whitesmoke;
+  user-select:none;
 }
 
-.mat-cell-sn {
-  flex-grow: 1;
-  margin: 0 auto;
+.mat-cell-position {
+  flex: 0 0 5%;
 }
 
-.mat-cell-sl {
-  flex: 0 0 10%;
+.mat-cell-selection {
+  flex: 0 0 5%;
+  justify-content: center
 }
 
 .mat-cell-song {
-  flex-grow: 12;
-  cursor: default;
+  flex: 0 0 35%;
 }
 
-.mat-cell-al {
-  flex-grow: 18;
-  cursor: default;
+.mat-cell-album {
+  flex: 0 0 30%;
 }
 
-.mat-cell-yr {
-  flex-grow: 2;
-  cursor: default;
+.mat-cell-time {
+  flex: 0 0 10%;
 }
 
-.mat-cell-op {
-  flex-grow: 1;
+.mat-cell-year {
+  flex: 0 0 5%;
+}
+
+.mat-cell-rating {
+  flex: 0 0 5%;
 }
 
 .mat-header-row {
@@ -56,17 +57,28 @@
 
 .clicked-row {
   /* border-left: 5px solid #282364;  */
-  background-color:  #ffd561
+  background-color:  #ffd56196
 }
   
 .selectedRow {
-  background-color:  #ffd561
+  background-color:  #ffd56196
 }
   
 .selectedRowClc{
-  background-color:  #ffd561
+  background-color:  #ffd56196
 }
 
 .table-row-style:hover {
    background-color:  rgba(80, 80, 80, 0.075); 
+}
+
+:host/deep/ .mat-menu-panel {
+  border-radius: 5px !important;
+  background-color: whitesmoke;
+}
+
+.mat-menu-item {
+  font-size: 14px;
+  line-height: 40px;
+  height: 40px;
 }
