@@ -6,7 +6,6 @@ import {
 } from "@angular/router";
 import { Observable } from "rxjs";
 import { DatabaseService } from "./database.service";
-import { DatastoreService } from "./datastore.service";
 import { DOCUMENT } from "@angular/common";
 
 @Injectable({
@@ -16,16 +15,14 @@ export class LibraryResolverService implements Resolve<any> {
   private skipCount = 0;
   private limitCount = 100;
 
-  constructor(
-    private datastoreService: DatastoreService
-  ) {
+  constructor( ) {
   }
 
   resolve(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<any> | Promise<any> | any {
-    return this.datastoreService.renderTable(this.limitCount,this.skipCount);
+    return ''
   }
 
 }

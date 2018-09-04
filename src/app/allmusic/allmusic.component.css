@@ -1,10 +1,5 @@
 .grid-layout {
-  /* display: grid;
-  grid-template-columns: 100%;
-  grid-template-rows: 100%; */
-  height: calc(100vh - 118px);
-  position: absolute;
-  width: 100%;
+  /* overflow-y: auto; */
   height: 100%;
   background: whitesmoke;
 }
@@ -14,4 +9,8 @@
   min-height: inherit;
 }
 
+template + * {
+  height: 100%;
+  overflow: auto;
+ }
 

@@ -1,4 +1,3 @@
-import { DatastoreService } from "../core/services/datastore.service";
 import { Track } from "../core/models/track";
 import { Playlist } from "../core/models/playlist";
 import { PlayerService } from "../core/services/player.service";
@@ -24,7 +23,6 @@ export class PlaylistsComponent implements OnInit {
   constructor(
     private playlistService: PlaylistService,
     private autoplayService: AutoplayService,
-    public datastoreService: DatastoreService,
     private router: Router,
     private playerService: PlayerService,
     private zone: NgZone
@@ -32,14 +30,7 @@ export class PlaylistsComponent implements OnInit {
     this.router.events.subscribe((event: any) => {
       if (event instanceof NavigationEnd) {
         if (event.urlAfterRedirects === "/playlists") {
-          const plylist: any = this.playLists.find(
-            (value: any) => value.Name === this.selectedPlaylstId
-          );
-          if (plylist) {
-            this.datastoreService.loadTracks(plylist.Tracks);
-          } else {
-            this.datastoreService.loadTracks([]);
-          }
+ 
         }
       }
     });

@@ -1,10 +1,14 @@
 
 .mat-table {
   overflow: auto;
-  max-height: 100%;
+  height: 100%;
   border-radius: 0px 0px 0px 0px;
   background: whitesmoke;
   user-select:none;
+}
+
+.mat-cell-header {
+  font-size: 14px;
 }
 
 .mat-cell-position {
@@ -39,6 +43,13 @@
 .mat-header-row {
   position: sticky;
   top: 0;
+  background: whitesmoke;
+  z-index: 9999;
+}
+
+.mat-footer-row {
+  position: sticky;
+  bottom: 0;
   background: whitesmoke;
   z-index: 9999;
 }

@@ -1,12 +1,10 @@
 import { PlayerService } from "../core/services/player.service";
 import { Playlist } from "../core/models/playlist";
 import { Track } from "../core/models/track";
-import { DatastoreService } from "../core/services/datastore.service";
 import {
   Component,
   OnInit,
   Input,
-  ChangeDetectorRef,
   ViewChild,
   ElementRef,
   HostListener,
@@ -15,22 +13,35 @@ import {
 import { PlaylistService } from "../core/services/playlist.service";
 import { AutoplayService } from "../core/services/autoplay.service";
 import { FilehandlingService } from "../core/services/filehandling.service";
-import { MatSnackBar, MatMenuTrigger } from "@angular/material";
-import { LibraryResolverService } from "../core/services/library-resolver.service";
-import { DatabaseService } from "../core/services/database.service";
-import { SelectionModel } from "../../../node_modules/@angular/cdk/collections";
-import { RxDocument } from "../../../node_modules/rxdb";
+import { MatSnackBar, MatMenuTrigger, MatPaginator } from "@angular/material";
+import { SelectionModel } from "@angular/cdk/collections";
+import { DatastoreService } from "./datastore.service";
+import { tap } from "rxjs/internal/operators/tap";
 declare const window: any;
 const { shell } = window.require("electron").remote;
 
 @Component({
   selector: "app-tableview",
   templateUrl: "./tableview.component.html",
-  styleUrls: ["./tableview.component.scss"]
+  styleUrls: ["./tableview.component.scss"],
+  providers: [DatastoreService]
 })
 export class TableviewComponent implements OnInit {
-  @Input("isDisplayImage") isDisplayImage = true;
-  @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
+  @Input("isDisplayImage")
+  isDisplayImage = true;
+  @ViewChild(MatMenuTrigger)
+  trigger: MatMenuTrigger;
+  @ViewChild("table")
+  table;
+
+  @ViewChild(MatPaginator)
+  paginator: MatPaginator;
+
+  // @Input("page")
+  page = 0;
+  length = 120;
+  pageSize = 60;
+  lastIndex = 0;
 
   // @Input('selectedRowIndex') selectedRowIndex = -1;
   // @Output() playEvent = new EventEmitter();
@@ -44,6 +55,11 @@ export class TableviewComponent implements OnInit {
     "Year",
     "Rating"
   ];
+
+  public symbol_cross = "&#10008;";
+  public symbol_check = "&#10004;";
+  public symbol_select = this.symbol_check;
+  public symbol_star = "&#9733;";
 
   public selection = new SelectionModel(true, []);
 
@@ -76,11 +92,7 @@ export class TableviewComponent implements OnInit {
   public menuLeft = 0;
   public menuTop = 0;
 
-  limitCount = 50;
-  skipCount = 0
-  library = new Array()
-
-  // datastoreService: DatastoreService;
+  library = new Array();
 
   constructor(
     private autoPlayService: AutoplayService,
@@ -88,9 +100,7 @@ export class TableviewComponent implements OnInit {
     private playerService: PlayerService,
     private fileHandlingSerice: FilehandlingService,
     public snackBar: MatSnackBar,
-    private resolver: LibraryResolverService,
     private playlistService: PlaylistService,
-    private dbService: DatabaseService,
     private zone: NgZone
   ) {}
 
@@ -100,17 +110,9 @@ export class TableviewComponent implements OnInit {
 
   ngOnInit() {
 
-    this.datastoreService.renderTable(this.limitCount, this.skipCount).then((tracks$) => {
-     
-      tracks$.subscribe(tracks => {
-        this.library = tracks;
-        this.zone.run(() => {
-          this.datastoreService.loadTracks(this.library);
-        });
-      });
+    this.datastoreService.renderPage(0);
+   
 
-    })
-        
     if (this.tracks && this.tracks.length <= 0) {
       this.isShowDropZone = true;
     } else {
@@ -134,20 +136,16 @@ export class TableviewComponent implements OnInit {
     });
   }
 
-
-  public onTableScroll(e) {
-    const tableViewHeight = e.target.offsetHeight; // viewport: ~500px
-    const tableScrollHeight = e.target.scrollHeight; // length of all table
-    const scrollLocation = e.target.scrollTop; // how far user scrolled
-
-    // If the user has scrolled within 200px of the bottom, add more data
-    const buffer = 500;
-    const limit = tableScrollHeight - tableViewHeight - buffer;
-    if (scrollLocation > limit) {
-      this.skipCount = this.skipCount+50;
-      this.datastoreService.executeQuery(this.limitCount, this.skipCount);
-    }
+  ngAfterViewInit() {
+    this.paginator.page.pipe(tap(() => this.loadPage())).subscribe();
   }
+
+  loadPage() {
+    this.lastIndex = this.paginator.pageIndex * 60;
+    this.datastoreService.renderPage(this.paginator.pageIndex);
+  }
+
+  public onTableScroll(e) {}
 
   public isAllSelected() {
     const numSelected = this.selection.selected.length;
@@ -157,9 +155,9 @@ export class TableviewComponent implements OnInit {
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */
   public masterToggle() {
-    this.isAllSelected() ?
-        this.selection.clear() :
-        this.datastoreService.data().forEach(row => this.selection.select(row));
+    this.isAllSelected()
+      ? this.selection.clear()
+      : this.datastoreService.data().forEach(row => this.selection.select(row));
   }
 
   private handleRowClick(row, event) {
@@ -319,8 +317,9 @@ export class TableviewComponent implements OnInit {
 
   trackByFn(index, item) {
     item.Position = index;
-    return item.Position;
+    return item._id;
   }
 
-  @ViewChild("filter") filter: ElementRef;
+  @ViewChild("filter")
+  filter: ElementRef;
 }

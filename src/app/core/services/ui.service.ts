@@ -1,4 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Injectable,ComponentFactoryResolver,
+  Inject,
+  ReflectiveInjector } from '@angular/core';
+
 
 @Injectable({
   providedIn: 'root'
@@ -8,8 +11,24 @@ export class UiService {
 
   private analyser: any
   private analyserGraph = 'curve'
+  private factoryResolver
+  private rootViewContainer 
 
-  constructor() { }
+  constructor(factoryResolver : ComponentFactoryResolver) {
+    this.factoryResolver = factoryResolver
+  }
+
+  setRootViewContainerRef(viewContainerRef) {
+    this.rootViewContainer = viewContainerRef
+  }
+
+  addDynamicComponent(dynamicComponent) {
+    const factory = this.factoryResolver
+                        .resolveComponentFactory(dynamicComponent)
+    const component = factory
+      .create(this.rootViewContainer.parentInjector)
+    this.rootViewContainer.insert(component.hostView)
+  }
 
   setPlayerAnalyser(analyser){
     this.analyser = analyser;

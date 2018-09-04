@@ -1,7 +1,6 @@
 import { PlaylistService } from './core/services/playlist.service';
 import { Router } from '@angular/router';
 import { Component, HostBinding } from '@angular/core';
-import { DatastoreService } from './core/services/datastore.service';
 import { AutoplayService } from './core/services/autoplay.service';
 import { transition, trigger, group, query, animate, style } from '@angular/animations';
 import { ArtistService } from './core/services/artist.service';
@@ -33,7 +32,7 @@ import { FormControl } from '@angular/forms';
 
         // move page off screen right on leave
         query(':leave',
-          animate('200ms cubic-bezier(.35,0,.25,1)',
+          animate('.3s ease-out',
             style({
               position: 'fixed',
               width: '100%',
@@ -45,7 +44,7 @@ import { FormControl } from '@angular/forms';
 
         // move page in screen from left to right
         query(':enter',
-          animate('200ms cubic-bezier(.35,0,.25,1)',
+          animate('.3s ease-out',
             style({
               opacity: 1,
               transform: 'translateX(0%)'

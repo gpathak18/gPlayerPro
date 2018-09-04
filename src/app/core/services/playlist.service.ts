@@ -1,4 +1,3 @@
-import { DatastoreService } from "./datastore.service";
 import { Injectable } from "@angular/core";
 import { PouchDbService } from "./pouch-db.service";
 import { BehaviorSubject, Observable } from "rxjs";

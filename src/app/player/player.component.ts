@@ -15,7 +15,6 @@ import {
   ElementRef,
   ViewChild
 } from "@angular/core";
-import { DatastoreService } from "../core/services/datastore.service";
 import { FilehandlingService } from "../core/services/filehandling.service";
 import { Track } from "../core/models/track";
 import {
@@ -82,7 +81,6 @@ export class PlayerComponent implements OnInit {
   constructor(
     private playlistService: PlaylistService,
     private autoplayService: AutoplayService,
-    private datastoreService: DatastoreService,
     private router: Router,
     private playerService: PlayerService,
     private route: ActivatedRoute,
@@ -122,9 +120,7 @@ export class PlayerComponent implements OnInit {
     this.routerEvtSub = this.router.events.subscribe((event: any) => {
       if (event instanceof NavigationEnd) {
         if (event.urlAfterRedirects === "/player") {
-          this.datastoreService.loadTracks(
-            this.playlistService.getAutoPlaylist()
-          );
+          
         }
       }
     });

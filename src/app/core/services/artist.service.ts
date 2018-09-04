@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { DatabaseService } from "./database.service";
-import { Subject } from "../../../../node_modules/rxjs/internal/Subject";
+import { Subject } from "rxjs/internal/Subject";
 
 @Injectable({
   providedIn: "root"

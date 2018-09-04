@@ -1,6 +1,7 @@
 <mat-table #table [dataSource]="datastoreService" [trackBy]="trackByFn" (scroll)="onTableScroll($event)">
   <ng-container matColumnDef="Position">
     <mat-header-cell *matHeaderCellDef class="mat-cell-position"> No. </mat-header-cell>
+    <mat-footer-cell *matFooterCellDef></mat-footer-cell>
     <mat-cell *matCellDef="let track;let i = index; " class="mat-cell-position">
       <div *ngIf="track.Position != hoverRowIndex;then trackPosition else playButton"></div>
       <ng-template #playButton>
@@ -25,29 +26,30 @@
         </ng-template>
       </ng-template>
       <ng-template #trackPosition>
-        <span> {{i+1}}</span>
+        <span> {{lastIndex + i + 1}}</span>
       </ng-template>
 
     </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="Select">
-      <mat-header-cell class="mat-cell-selection" mat-header-cell *matHeaderCellDef >
-        <mat-checkbox (change)="$event ? masterToggle() : null"
-                      [checked]="selection.hasValue() && isAllSelected()"
-                      [indeterminate]="selection.hasValue() && !isAllSelected()">
-        </mat-checkbox>
-      </mat-header-cell>
-      <mat-cell class="mat-cell-selection" mat-cell *matCellDef="let row">
-        <mat-checkbox (click)="$event.stopPropagation()"
-                      (change)="$event ? selection.toggle(row) : null"
-                      [checked]="selection.isSelected(row)">
-        </mat-checkbox>
-      </mat-cell>
-    </ng-container>
+    <mat-header-cell class="mat-cell-selection" mat-header-cell *matHeaderCellDef>
+      <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()" [indeterminate]="selection.hasValue() && !isAllSelected()">
+      </mat-checkbox>
+      <!-- <span>&#10004;</span> -->
+    </mat-header-cell>
+    <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+
+    <mat-cell class="mat-cell-selection" mat-cell *matCellDef="let row">
+      <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)">
+      </mat-checkbox>
+      <!-- <span>&#10004;</span> -->
+    </mat-cell>
+  </ng-container>
 
   <ng-container matColumnDef="Name">
     <mat-header-cell *matHeaderCellDef mat-sort-header class="mat-cell-song">Name</mat-header-cell>
+    <mat-footer-cell *matFooterCellDef></mat-footer-cell>
     <mat-cell class="mat-cell-song" *matCellDef="let track;" class="mat-cell-song" (contextmenu)="onRightClick(track, $event)">
       <span style="position: absolute;" [matMenuTriggerFor]="menu" [style.left.px]="menuLeft" [style.top.px]="menuTop"></span>
       <div class="grid-layout" [ngClass]="{'grid-layout-two-columns': isDisplayImage}">
@@ -65,6 +67,10 @@
 
   <ng-container matColumnDef="Album">
     <mat-header-cell *matHeaderCellDef class="mat-cell-album"> Album </mat-header-cell>
+    <mat-footer-cell style="flex: none" *matFooterCellDef>    
+      <mat-paginator style="background: whitesmoke" [pageSize]="pageSize" [length]="length"></mat-paginator>
+    </mat-footer-cell>
+
     <mat-cell class="mat-cell-album" *matCellDef="let row" (contextmenu)="onRightClick(row, $event)">
       <span style="position: absolute;" [matMenuTriggerFor]="menu" [style.left.px]="menuLeft" [style.top.px]="menuTop"></span>
       <div style="align-self: center">
@@ -75,6 +81,8 @@
 
   <ng-container matColumnDef="Time">
     <mat-header-cell class="mat-cell-time" *matHeaderCellDef> Time </mat-header-cell>
+    <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+
     <mat-cell class="mat-cell-time" *matCellDef="let row" (contextmenu)="onRightClick(row, $event)">
       <span style="position: absolute;" [matMenuTriggerFor]="menu" [style.left.px]="menuLeft" [style.top.px]="menuTop"></span>
       <div style="align-self: center">
@@ -85,6 +93,8 @@
 
   <ng-container matColumnDef="Year">
     <mat-header-cell class="mat-cell-year" *matHeaderCellDef> Year </mat-header-cell>
+    <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+
     <mat-cell class="mat-cell-year" *matCellDef="let row" (contextmenu)="onRightClick(row, $event)">
       <span style="position: absolute;" [matMenuTriggerFor]="menu" [style.left.px]="menuLeft" [style.top.px]="menuTop"></span>
       <div style="align-self: center">
@@ -95,29 +105,34 @@
 
   <ng-container matColumnDef="Rating">
     <mat-header-cell class="mat-cell-rating" *matHeaderCellDef> Rating </mat-header-cell>
+    <mat-footer-cell *matFooterCellDef></mat-footer-cell>
+
     <mat-cell class="mat-cell-rating" *matCellDef="let row" (contextmenu)="onRightClick(row, $event)">
       <span style="position: absolute;" [matMenuTriggerFor]="menu" [style.left.px]="menuLeft" [style.top.px]="menuTop"></span>
       <div *ngIf="row.Rating; then rating else norating"></div>
       <ng-template #rating>
         <div style="align-self: center;display: flex;flex-direction: row;justify-content: center;align-items: center;">
-          <span>{{row.Rating}}</span>
-          <mat-icon style="opacity: 0.89; transform: scale(0.7);">star</mat-icon>
+          <span>{{row.Rating}} &#9733;</span>
+          <!-- <mat-icon style="opacity: 0.89; transform: scale(0.7);">star</mat-icon> -->
         </div>
       </ng-template>
       <ng-template #norating>
         <div style="align-self: center;display: flex;flex-direction: row;justify-content: center;align-items: center;">
-          <span>0</span>
-          <mat-icon style="opacity: 0.89; transform: scale(0.7);">star</mat-icon>
+          <span>0 &#9733;</span>
+          <!-- <mat-icon style="opacity: 0.89; transform: scale(0.7);">star</mat-icon> -->
         </div>
       </ng-template>
     </mat-cell>
   </ng-container>
 
-  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-header-row *matHeaderRowDef="displayedColumns; "></mat-header-row>
   <mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'clicked-row': clickRowIndex===row.Position , 'table-row-style': clickRowIndex!==row.Position}"
     (mouseenter)="hoverRowIndex=row.Position" (click)="handleRowClick(row,$event)" (dblclick)="playTrack(row)">
   </mat-row>
+  <mat-footer-row *matFooterRowDef="displayedColumns">
+  </mat-footer-row>
 </mat-table>
+
 
 <mat-menu #menu="matMenu" style="max-height: 30px" (close)="menuCloseEvent()">
   <ng-template matMenuContent>
@@ -126,7 +141,8 @@
       <span> Play Next</span>
     </button>
     <button mat-menu-item (click)="enqueueTrack()">
-      <mat-icon>queue_music</mat-icon>
+      <mat-icon>queue_music
+      </mat-icon>
       <span>Queue Track</span>
     </button>
     <button mat-menu-item [matMenuTriggerFor]="playlists">
