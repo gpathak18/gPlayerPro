@@ -26,28 +26,30 @@ import { FormControl } from '@angular/forms';
             position: 'fixed',
             width: '100%',
             height: '100%',
-            transform: 'translateX(-100%)'
+            // transform: 'translateX(-100%)',
+            // opacity: 1
           }),
           { optional: true }),
 
         // move page off screen right on leave
         query(':leave',
-          animate('.3s ease-out',
+          animate('600ms ease-in-out',
             style({
               position: 'fixed',
               width: '100%',
               height: '100%',
-              transform: 'translateX(100%)'
+              // transform: 'translateX(100%)',
+              // opacity: 0
             })
           ),
           { optional: true }),
 
         // move page in screen from left to right
         query(':enter',
-          animate('.3s ease-out',
+          animate('600ms ease-in-out',
             style({
-              opacity: 1,
-              transform: 'translateX(0%)'
+              // opacity: 1,
+              // transform: 'translateX(0%)'
             })
           ),
           { optional: true }),

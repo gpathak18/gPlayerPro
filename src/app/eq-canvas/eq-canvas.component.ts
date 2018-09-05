@@ -50,8 +50,8 @@ export class EqCanvasComponent implements OnInit {
     canvasEl.width =  this.width;
     canvasEl.height = this.height;
     this.canCtx.clearRect(0, 0, this.width, this.height);
-    this.drawCurve();
-    // this.drawBar();
+    // this.drawCurve();
+    this.drawBar();
   }
 
   public drawCurve() {

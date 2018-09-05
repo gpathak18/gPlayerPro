@@ -68,7 +68,7 @@
   <ng-container matColumnDef="Album">
     <mat-header-cell *matHeaderCellDef class="mat-cell-album"> Album </mat-header-cell>
     <mat-footer-cell style="flex: none" *matFooterCellDef>    
-      <mat-paginator style="background: whitesmoke" [pageSize]="pageSize" [length]="length"></mat-paginator>
+      <mat-paginator style="background: #E0E0E0;" [pageSize]="pageSize" [length]="length"></mat-paginator>
     </mat-footer-cell>
 
     <mat-cell class="mat-cell-album" *matCellDef="let row" (contextmenu)="onRightClick(row, $event)">
