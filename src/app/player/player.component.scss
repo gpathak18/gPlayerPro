@@ -9,7 +9,7 @@ $opacity: 0.8;
   grid-template-rows: 60px auto;
   height: 100%;
   background: whitesmoke;
-  background-image: url("../../assets/gigs.jpg");
+  // background-image: url("../../assets/gigs.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
   overflow: hidden;
@@ -86,7 +86,7 @@ $opacity: 0.8;
       background-blend-mode: screen;
       background-color: #9e9e9e;
       background: linear-gradient(
-        30deg,
+        150deg,
         rgba(245, 245, 245, 0.7) 60%,
         rgba(255, 237, 75, 0.5) 60%
       );
