@@ -2,7 +2,7 @@ import { RouteReuseStrategy } from "@angular/router";
 import { OAuthModule } from "angular-oauth2-oidc";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserModule } from "@angular/platform-browser";
-import { NgModule, ErrorHandler } from "@angular/core";
+import { NgModule, ErrorHandler, APP_INITIALIZER } from "@angular/core";
 import { MatIconModule } from "@angular/material/icon";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
@@ -58,6 +58,17 @@ import { ArtistService } from "./core/services/artist.service";
 import { FileHandlerModule } from "./file-handler/file-handler.module";
 import { NgxDatatableModule } from "@swimlane/ngx-datatable";
 import { HttpClientModule } from "@angular/common/http";
+import { GdriveHandlerModule } from "./gdrive-handler/gdrive-handler.module";
+import { GapiSession } from "src/app/gdrive-handler/sessions/gapi.session";
+import { AppSession } from "src/app/gdrive-handler/sessions/app.session";
+import { FileSession } from "src/app/gdrive-handler/sessions/file.session";
+import { UserSession } from "src/app/gdrive-handler/sessions/user.session";
+import { AppRepository } from "src/app/gdrive-handler/repositories/app.repository";
+import { FileRepository } from "src/app/gdrive-handler/repositories/file.repository";
+import { UserRepository } from "src/app/gdrive-handler/repositories/user.repository";
+import { LoggedInGuard } from "src/app/gdrive-handler/sessions/loggedInGuard";
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -100,6 +111,7 @@ import { HttpClientModule } from "@angular/common/http";
     MatSlideToggleModule,
     MatProgressBarModule,
     FileHandlerModule,
+    GdriveHandlerModule,
     NgxDatatableModule,
     MatCardModule,
     MatChipsModule,
@@ -131,7 +143,15 @@ import { HttpClientModule } from "@angular/common/http";
       useValue: {
         separatorKeyCodes: [13, 188]
       }
-    }
+    },
+    AppSession,
+    FileSession,
+    GapiSession,
+    UserSession,
+    AppRepository,
+    FileRepository,
+    UserRepository,
+    LoggedInGuard
   ],
   entryComponents: [TableviewComponent],
   bootstrap: [AppComponent]

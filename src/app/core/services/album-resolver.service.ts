@@ -37,6 +37,8 @@ export class AlbumResolverService implements Resolve<any> {
   }
 
   async buildTrackCache(albumDocs) {
+    const db: any = await this.databaseService.get();
+
     albumDocs.map((album) => {
       if (album) {
         this.albumTrackCache.set(album.AlbumName, album.Tracks_)

@@ -33,6 +33,8 @@ import {
 } from "@angular/material";
 import { startWith, map } from "rxjs/operators";
 import { ChartService } from "../core/services/chart.service";
+import { AppRepository } from "src/app/gdrive-handler/repositories/app.repository";
+import { AppSession } from "src/app/gdrive-handler/sessions/app.session";
 
 @Component({
   selector: "app-player",
@@ -85,7 +87,9 @@ export class PlayerComponent implements OnInit {
     private playerService: PlayerService,
     private route: ActivatedRoute,
     private databaseService: DatabaseService,
-    private chartService: ChartService
+    private chartService: ChartService,
+    private appRepository: AppRepository,
+    private appSession: AppSession
   ) {
 
     this.filteredGenere = this.genereCtrl.valueChanges.pipe(
@@ -120,12 +124,14 @@ export class PlayerComponent implements OnInit {
     this.routerEvtSub = this.router.events.subscribe((event: any) => {
       if (event instanceof NavigationEnd) {
         if (event.urlAfterRedirects === "/player") {
-          
+
         }
       }
     });
 
     this.getChart();
+    // this.signIn()
+
   }
 
   public getChart() {
@@ -133,24 +139,25 @@ export class PlayerComponent implements OnInit {
     this.chartService.getTopArtists().subscribe((data: any) => {
       this.atrists = data.artists.artist;
       console.log(this.atrists[0].image[0]['#text'])
-     });
+    });
 
-     this.chartService.getWeeklyTopTen().subscribe((data: any) => {
+    this.chartService.getWeeklyTopTen().subscribe((data: any) => {
       this.weeklyTopTracks = data.tracks.track;
       console.log(this.weeklyTopTracks)
-     });
-     
-     this.chartService.getSimilarTracks().subscribe((data: any) => {
+    });
+
+    this.chartService.getSimilarTracks().subscribe((data: any) => {
       console.log(data)
-     });
+    });
   }
 
 
-  public onPreviousSearchPosition(){
+
+  public onPreviousSearchPosition() {
     this.panel.nativeElement.scrollLeft -= (this.panel.nativeElement.clientWidth);
   }
 
-  public onNextSearchPosition(){
+  public onNextSearchPosition() {
     this.panel.nativeElement.scrollLeft += (this.panel.nativeElement.clientWidth);
   }
 

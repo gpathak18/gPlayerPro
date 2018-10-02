@@ -64,7 +64,8 @@
   grid-row-gap: 10px;
   grid-auto-rows: minmax(max-content, 190px);
   overflow-x: hidden;
-  height: calc(100vh - 192px);
+  /* height: calc(100vh - 192px); */
+  height: 100%;
   padding: 10px;
   -webkit-overflow-scrolling: touch;
 }

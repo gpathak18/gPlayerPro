@@ -4,7 +4,9 @@
       <mat-list-item>
         <input class="input-style" placeholder="Filter Artists"  type="text" >
       </mat-list-item>
-      <mat-list-item mat-ink-ripple class="playlist-item-style" *ngFor="let artist of artists" [id]="artist._id" (click)="flattenArtist($event)">
+      <mat-list-item mat-ink-ripple class="" *ngFor="let artist of artists" 
+      [id]="artist._id" (click)="flattenArtist($event)" 
+      [ngClass]="{'playlist-item-style-selected': selectedArtistId === artist._id ,  'playlist-item-style': selectedArtistId!==artist._id}" >
         <!-- <mat-icon matListIcon class="icon-style">{{artist.name}}</mat-icon> -->
         <div class="div-text">{{artist.ArtistName}}</div>
       </mat-list-item>

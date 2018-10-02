@@ -1,7 +1,9 @@
 <div class="grid-layout">
   <div>
     <mat-list  class="mat-list-style">
-      <mat-list-item   mat-ink-ripple class="playlist-item-style" *ngFor="let setting of settings" [id]="setting.id">
+      <mat-list-item   mat-ink-ripple class="playlist-item-style" *ngFor="let setting of settings" [id]="setting.id"
+      (click)="onSettingClick($event)"
+      [ngClass]="{'playlist-item-style-selected': selectedSettingId === setting._id ,  'playlist-item-style': selectedSettingId!==setting._id}">
           <mat-icon matListIcon class="icon-style">{{setting.icon}}</mat-icon>
           <div class="div-text">{{setting.name}}</div>
       </mat-list-item>

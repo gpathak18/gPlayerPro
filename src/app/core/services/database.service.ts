@@ -1,21 +1,12 @@
 import { Injectable } from '@angular/core';
-import RxDB from 'rxdb';
-import { QueryChangeDetector, RxJsonSchema } from 'rxdb';
-import { RxDatabase } from 'rxdb/src/typings/rx-database';
-// import { TrackSchema, AlbumSchema, PlaylistSchema, ArtistSchema } from './core/schemas/schemas.export';
+import RxDB, { RxDatabase } from 'rxdb';
 import TrackSchema from "../../core/schemas/track.schema.json";
 import AlbumSchema from "../../core/schemas/album.schema.json";
 import PlaylistSchema from "../../core/schemas/playlist.schema.json";
 import ArtistSchema from "../../core/schemas/artist.schema.json";
 import PouchdbAdapterIdb from 'pouchdb-adapter-idb'; 
 
-// const trackSchema: any  = TrackSchema
-// const albumSchema: any  = AlbumSchema
-// const playlistSchema: any  = PlaylistSchema
-// const artistSchema: any  = ArtistSchema
-
 RxDB.plugin(PouchdbAdapterIdb);
-RxDB.QueryChangeDetector.enable();
 RxDB.QueryChangeDetector.enableDebugging();
 
 let collections = [
@@ -52,7 +43,8 @@ export class DatabaseService {
       name: 'gplayer',
       adapter: 'idb',
       // password: 'myLongAndStupidPassword' // no password needed
-      multiInstance: true
+      multiInstance: true,
+      queryChangeDetection: true 
     });
     console.log('DatabaseService: created database');
     window['db'] = db; // write to window for debugging

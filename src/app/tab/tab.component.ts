@@ -14,11 +14,11 @@ export class TabComponent implements OnInit {
   constructor(private router: Router) { 
     this.navLinks = [
       {label: 'Player', icon: 'play_circle_filled', path: 'player'},
-      {label: 'All Music', icon: 'music_note',path: 'allmusic'},
+      {label: 'Library', icon: 'music_note',path: 'allmusic'},
       {label: 'Playlists', icon: 'playlist_play',path: 'playlists'},
       {label: 'Albums', icon: 'album',path: 'albums'},
       {label: 'Artists', icon: 'recent_actors',path: 'artists'},
-      {label: 'Radio', icon: 'radio', path: 'radio'},
+      // {label: 'Radio', icon: 'radio', path: 'radio'},
       {label: 'Settings', icon: 'settings',path: 'settings'},
     ];
 

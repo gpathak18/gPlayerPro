@@ -31,7 +31,7 @@ function createWindow() {
     icon: 'file:///' + __dirname + '/dist/gPlayerPro/assets/icon.png'
 
   })
-  win.loadURL('http://127.0.0.1:4200')
+  win.loadURL('http://localhost:4200')
   // win.loadURL('file:///' + __dirname + '/dist/gPlayerPro/index.html')
   // win.setMaximumSize(1024, 768)
 
@@ -102,7 +102,7 @@ function setListeners() {
 
 function getBackgroundWindow() {
   cWin = new BrowserWindow({ parent: win, show: false })
-  cWin.loadURL('http://127.0.0.1:4200/index.html#files')
+  cWin.loadURL('http://localhost:4200/index.html#files')
   // cWin.loadURL('file:///' + __dirname + '/dist/gPlayerPro/index.html#files')
 
 }

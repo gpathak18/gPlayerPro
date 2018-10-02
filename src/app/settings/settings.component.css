@@ -1,55 +1,60 @@
 .icon-style {
-    color: #3e3e3e;
+  color: #3e3e3e;
 }
 
 .grid-layout {
-    display: grid;
-    grid-template-columns: 20% auto;
-    grid-template-rows: 100%;
-    height: 100%;
-  }
-  
-  .mat-list-items {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 100%;
-    cursor: pointer;
-  }
-  
-  .playlist-item-style:hover {
-    
-    border-left-color:  hsla(36, 100%, 50%, 1);
-    background-color:  rgba(80, 80, 80, 0.075); 
-  
-  }
+  display: grid;
+  grid-template-columns: 20% auto;
+  grid-template-rows: 100%;
+  height: 100%;
+}
 
-  .playlist-item-style {
-    border-left: 3px;
-    border-left-style: solid;
-    border-left-color: rgba(0, 0, 0, 0);
-    cursor: pointer;
-  }
-  
+.mat-list-items {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  cursor: pointer;
+}
 
-  
-  .mat-list-style {
-    width: 100%;
-    height: 100%;
-    overflow-y: hidden;
-    background-color: rgba(0,0,0,.1);
-  }
-  
-  .mat-list-style:hover {
-    overflow-y: overlay;
-  }
+.playlist-item-style:hover {
 
-  .div-text {
-    margin-left: 15px;
-    font-family: roboto;
-    font-size: 16px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-  
+  border-left-color: hsla(36, 100%, 50%, 1);
+  background-color: rgba(80, 80, 80, 0.075);
+
+}
+
+.playlist-item-style {
+  border-left: 3px;
+  border-left-style: solid;
+  border-left-color: rgba(0, 0, 0, 0);
+  cursor: pointer;
+}
+
+.playlist-item-style-selected {
+  border-left: 3px;
+  border-left-style: solid;
+  border-left-color: hsla(36, 100%, 50%, 1);
+  cursor: pointer;
+  background: rgba(255, 152, 0, 0.5);
+}
+
+.mat-list-style {
+  width: 100%;
+  height: 100%;
+  overflow-y: hidden;
+  background-color: rgba(0, 0, 0, .1);
+}
+
+.mat-list-style:hover {
+  overflow-y: overlay;
+}
+
+.div-text {
+  margin-left: 15px;
+  font-family: roboto;
+  font-size: 16px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

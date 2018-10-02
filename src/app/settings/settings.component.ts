@@ -8,6 +8,8 @@ import { Router, NavigationEnd } from '@angular/router';
 })
 export class SettingsComponent implements OnInit {
 
+  public selectedSettingId;
+
   settings = [
     {name: 'Account', icon: 'account_box'},
     {name: 'Equalizer', icon: 'equalizer'},
@@ -29,5 +31,10 @@ export class SettingsComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  onSettingClick($event) {
+    this.selectedSettingId = $event.currentTarget.id;
+  }
+
 
 }

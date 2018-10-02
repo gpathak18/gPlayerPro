@@ -18,7 +18,7 @@ export class PlaylistsComponent implements OnInit {
   public playlistname = "";
   public options = false;
   private noimage = "assets/png/no-image.png";
-  private selectedPlaylstId = "";
+  public  selectedPlaylstId;
   private selectedTrack;
   constructor(
     private playlistService: PlaylistService,
@@ -71,6 +71,7 @@ export class PlaylistsComponent implements OnInit {
 
   public selectedPlylst($event) {
     const id = $event.currentTarget.id;
+    this.selectedPlaylstId = id;
     const plylist: any = this.playLists.find((value: any) => value._id === id);
     this.playlistService
       .getTracksOfPlaylist(plylist)

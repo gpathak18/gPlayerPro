@@ -52,9 +52,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "gPlayerPro:build",
-            "host": "127.0.0.1",
-            "port": 4200
+            "browserTarget": "gPlayerPro:build"
+
           },
           "configurations": {
             "production": {

@@ -12,6 +12,7 @@ export class ArtistsComponent implements OnInit {
   public artistAlbums = new Array();
   public selectedArtistName = "";
   public selectedArtist;
+  public selectedArtistId;
   public totalSelArtistAlbums = 0;
   public totalSelArtistTracks = 0;
 
@@ -40,6 +41,7 @@ export class ArtistsComponent implements OnInit {
 
   public async flattenArtist($event) {
     const id = $event.currentTarget.id;
+    this.selectedArtistId = id;
     this.selectedArtist = this.artists.find((value: any) => value._id === id);
     this.selectedArtistName = this.selectedArtist.ArtistName;
     this.artistAlbums = this.selectedArtist.Albums;

@@ -5,7 +5,8 @@
         <input class="input-style" placeholder="Create Playlist" [(ngModel)]="playlistname" type="text" (keyup.enter)="addPlaylist($event)">
       </mat-list-item>
       <mat-list-item class="playlist-item-style" *ngFor="let playlist of playLists" [id]="playlist._id" (mouseenter)="playlist.IsHidden=true"
-        (mouseleave)="playlist.IsHidden=false" (click)="selectedPlylst($event)" (dblclick)="playPlaylist($event)">
+        (mouseleave)="playlist.IsHidden=false" (click)="selectedPlylst($event)" (dblclick)="playPlaylist($event)"
+        [ngClass]="{'playlist-item-style-selected': selectedPlaylstId === playlist._id ,  'playlist-item-style': selectedPlaylstId!==playlist._id}">
         <div class="mat-list-items">
           <!-- <mat-icon matListIcon class="icon-style">playlist</mat-icon> -->
           <div class="div-text">{{playlist. PlaylistName}}</div>

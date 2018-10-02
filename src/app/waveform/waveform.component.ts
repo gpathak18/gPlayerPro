@@ -15,7 +15,7 @@ export class WaveformComponent implements OnInit {
 
   private player = null;
   private isScroll: boolean = true;
-  private waveformHeight = 50;
+  private waveformHeight = 30;
   // linear-gradient(90deg, rgba(217, 96, 189, .8), rgba(0, 208, 255, .9))
   // linear-gradient(127deg, rgba(0,255,0,.8), rgba(0,255,0,0) 70.71%),
   //   linear-gradient(336deg, rgba(0,0,255,.8), rgba(0,0,255,0) 70.71%);

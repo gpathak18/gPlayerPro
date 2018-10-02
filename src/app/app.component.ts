@@ -9,6 +9,9 @@ import { LibraryResolverService } from './core/services/library-resolver.service
 import { OAuthService, JwksValidationHandler } from 'angular-oauth2-oidc';
 import { AuthConfig } from 'angular-oauth2-oidc';
 import { FormControl } from '@angular/forms';
+import { GapiSession } from 'src/app/gdrive-handler/sessions/gapi.session';
+import { AppRepository } from './gdrive-handler/repositories/app.repository';
+import { AppSession } from './gdrive-handler/sessions/app.session';
 
 @Component({
   selector: 'app-root',
@@ -71,9 +74,13 @@ export class AppComponent {
     strictDiscoveryDocumentValidation: false
   };
 
-  constructor(private libResolver: LibraryResolverService,
-    private oauthService: OAuthService
-  ) { 
+  constructor(
+    private libResolver: LibraryResolverService,
+    private oauthService: OAuthService,
+    private gapiSession: GapiSession,
+    private appRepository: AppRepository,
+    private appSession: AppSession
+  ) {
     this.oauthService.configure(this.authConfig);
     this.oauthService.tokenValidationHandler = new JwksValidationHandler();
     this.oauthService.loadDiscoveryDocumentAndTryLogin();
@@ -88,11 +95,27 @@ export class AppComponent {
     return outlet.activatedRouteData['state'] || 'firstPage';
   }
 
-  // ngOnInit() {
-  //   this.initDatabase();
-  // }
+  ngAfterViewInit() {
+    this.appSession.Gapi.initClient().then((resolved) => {
+      this.signIn();
+    });
+  }
 
-  // async initDatabase() {
-  //   await this.databaseService.get();
-  // }
+  refresh(fileId: string) {
+    this.appRepository.File.getFiles(fileId)
+      .then((res) => {
+        // this.zone.run(() => {
+        console.log(res)
+        // });
+      });
+  }
+
+  signIn() {
+    this.appSession.Gapi.signIn()
+      .then(() => {
+        if (this.appSession.Gapi.isSignedIn) {
+          this.refresh("root/music")
+        }
+      });
+  }
 }

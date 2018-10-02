@@ -25,6 +25,7 @@
         <mat-icon style="color: whitesmoke">search</mat-icon>
       </button>
     </mat-form-field> -->
+    <app-tab class="nav-bar"></app-tab>
 
     <mat-autocomplete #auto="matAutocomplete">
       <mat-option *ngFor="let option of options" [value]="option">{{option}}</mat-option>
@@ -33,7 +34,6 @@
 
 
   </header>
-  <app-tab class="nav-bar"></app-tab>
 
   <main [@routeAnimation]="getState(routerOutlet)" class="main-container">
     <router-outlet #routerOutlet="outlet"></router-outlet>

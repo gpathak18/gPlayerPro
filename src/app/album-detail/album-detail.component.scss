@@ -6,6 +6,7 @@ $opacity: 0.8;
 .main-grid-layout {
   display: grid;
   grid-template-columns: 1fr 4fr;
+
   @extend %div-text;
   margin: 0px 0px 20px 0px;
 
@@ -26,7 +27,7 @@ $opacity: 0.8;
     }
 
     &.detail-body {
-      background: pink;
+      background: #f2f2f0;
     }
 
   }
