@@ -39,7 +39,7 @@
               <div matListAvatar style="justify-self: center;width:40px;height:40px;border-radius: 5%;overflow: hidden">
                 <app-image [imageUrl]="track.Image"></app-image>
                 <div class="play-album-sm">
-                  <button mat-mini-fab color="white">
+                  <button mat-mini-fab color="white" (click)="playTrack(track)">
                     <mat-icon aria-label="play arrow">play_arrow</mat-icon>
                   </button>
                 </div>

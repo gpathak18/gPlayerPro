@@ -83,6 +83,14 @@ export class FooterComponent implements OnInit {
     // })
   }
 
+  private playNext() {
+    this.playerService.playNext();
+  }
+
+  private playPrevious() {
+    this.playerService.playPrevious();
+  }
+
   public togglePlayPauseState() {
     if (this.playPauseState == 'play') {
       this.playerService.pause();

@@ -227,7 +227,7 @@ export class TableviewComponent implements OnInit {
     // this.playlistService.updateMainLibrary(this.tracks);
   }
 
-  private setRating(i) {
+  private  setRating(i) {
     if (!i) {
       i = 0;
     }
@@ -237,7 +237,8 @@ export class TableviewComponent implements OnInit {
       } else {
         star = "star_border";
       }
-      this.selectedTrack.Rating = i + "";
+      this.selectedTrack.atomicSet('Rating',i + "");
+      // this.selectedTrack.Rating = i + "";
       return star;
     });
   }
@@ -246,15 +247,18 @@ export class TableviewComponent implements OnInit {
     if (i === 1 && this.starResetCntr === 1) {
       this.stars[0] = this.stars[0] === "star_border" ? "star" : "star_border";
       if (this.stars[0] === "star") {
-        this.selectedTrack.Rating = "" + 1;
+        // this.selectedTrack.Rating = "" + 1;
+        this.selectedTrack.atomicSet('Rating',1 + "");
       } else {
-        this.selectedTrack.Rating = "" + 0;
+        // this.selectedTrack.Rating = "" + 0;
+        this.selectedTrack.atomicSet('Rating',0 + "");
       }
       this.starResetCntr = 0;
     } else if (i === 1) {
       this.starResetCntr++;
     }
-    this.selectedTrack.save();
+    // this.selectedTrack.save();
+  
   }
 
   private openSnackBar(plylist, action: string) {

@@ -18,7 +18,7 @@ export class FileComponent implements OnInit {
   ngOnInit() {
 
     // 
-    ipcRenderer.on('OpenFile', (event, arg) => {
+    ipcRenderer.on('OpenFileDialog', (event, arg) => {
       const { dialog } = window.require('electron').remote;
       dialog.showOpenDialog({
         filters: [{ name: 'Audio', extensions: ['mp3', 'wav', 'mp4'] }],

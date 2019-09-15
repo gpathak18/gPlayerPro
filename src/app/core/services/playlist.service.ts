@@ -59,8 +59,7 @@ export class PlaylistService {
     if (plylistDoc) {
       let trackArr = plylistDoc.Tracks.slice(0)
       trackArr.push(trackId)
-      plylistDoc.Tracks = trackArr
-      plylistDoc.save();
+      await plylistDoc.atomicSet('Tracks',trackArr);
     } 
     
   }

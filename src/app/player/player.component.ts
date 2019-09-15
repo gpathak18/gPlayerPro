@@ -207,6 +207,10 @@ export class PlayerComponent implements OnInit {
     this.playerService.playNext();
   }
 
+  private playTrack(track) {
+    this.playerService.playNow(track);
+  }
+  
   private playPrevious() {
     this.playerService.playPrevious();
   }

@@ -60,12 +60,12 @@ export class AlbumsComponent implements AfterViewInit {
     });
 
     // this.albDetHgt = '0px'
-    album.Selection = album.Selection == "open" ? "close" : "open";
-    // let selection = album.Selection == "open" ? "close" : "open";
-    // await album.atomicSet('Selection',selection);
+    // album.Selection = album.Selection == "open" ? "close" : "open";
+    let selection = album.Selection == "open" ? "close" : "open";
+    await album.atomicSet('Selection',selection);
     if (this.selectedAlbum && this.selectedAlbum !== album) {
-      // await  this.selectedAlbum.atomicSet('Selection','close');
-      this.selectedAlbum.Selection = 'close'
+      await  this.selectedAlbum.atomicSet('Selection','close');
+      // this.selectedAlbum.Selection = 'close'
     }
     this.isFlipped = album.Selection == "open" ? 'true' : 'false';
     this.selectedAlbum = album;

@@ -101,7 +101,7 @@ function setListeners() {
 }
 
 function getBackgroundWindow() {
-  cWin = new BrowserWindow({ parent: win, show: false })
+  cWin = new BrowserWindow({ parent: win, show: true })
   cWin.loadURL('http://localhost:4200/index.html#files')
   // cWin.loadURL('file:///' + __dirname + '/dist/gPlayerPro/index.html#files')
 
