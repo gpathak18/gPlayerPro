@@ -19,7 +19,8 @@ function createWindow() {
   win = new BrowserWindow({
     webPreferences: {
       webSecurity: false,
-      experimentalFeatures: true
+      experimentalFeatures: true,
+      nodeIntegration: true
     },
     titleBarStyle: 'hiddenInset',
     // vibrancy: 'dark',

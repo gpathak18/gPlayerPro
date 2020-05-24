@@ -9,7 +9,7 @@ const { ipcRenderer } = window.require("electron")
 })
 export class FileComponent implements OnInit {
 
-  @ViewChild('file2') input;
+  @ViewChild('file2', {static: false}) input;
 
   constructor(
     private fileHandlingService: FilehandlingService

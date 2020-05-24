@@ -56,7 +56,6 @@ import { AlbumDetailComponent } from "./album-detail/album-detail.component";
 import { ErrorHandlerService } from "./core/services/error-handler.service";
 import { ArtistService } from "./core/services/artist.service";
 import { FileHandlerModule } from "./file-handler/file-handler.module";
-import { NgxDatatableModule } from "@swimlane/ngx-datatable";
 import { HttpClientModule } from "@angular/common/http";
 import { GdriveHandlerModule } from "./gdrive-handler/gdrive-handler.module";
 import { GapiSession } from "src/app/gdrive-handler/sessions/gapi.session";
@@ -112,7 +111,6 @@ import { LoggedInGuard } from "src/app/gdrive-handler/sessions/loggedInGuard";
     MatProgressBarModule,
     FileHandlerModule,
     GdriveHandlerModule,
-    NgxDatatableModule,
     MatCardModule,
     MatChipsModule,
     ReactiveFormsModule,

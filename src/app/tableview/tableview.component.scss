@@ -84,7 +84,7 @@
    background-color:  rgba(80, 80, 80, 0.075); 
 }
 
-:host/deep/ .mat-menu-panel {
+:host::ng-deep .mat-menu-panel {
   border-radius: 5px !important;
   background-color: whitesmoke;
 }

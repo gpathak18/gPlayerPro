@@ -27,8 +27,10 @@ import { distinctUntilChanged } from "rxjs/internal/operators/distinctUntilChang
 })
 export class AllmusicComponent implements AfterViewInit {
 
-  @ViewChild("tableContainer", { read: ViewContainerRef }) container;
-  @ViewChild("tableDiv") table;
+  @ViewChild("tableContainer",{read: ViewContainerRef, static: false}) 
+  container: ViewContainerRef;
+  
+  @ViewChild("tableDiv",{static: false}) table;
 
   private page = 0;
   private componenets = new Map()
@@ -36,7 +38,7 @@ export class AllmusicComponent implements AfterViewInit {
   constructor(private resolver: ComponentFactoryResolver) {}
 
   ngOnInit() {
-    this.createComponent(this.page);
+   
   }
 
   async createComponent(page) {
@@ -53,6 +55,7 @@ export class AllmusicComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
+    this.createComponent(this.page);
   }
 
   ngOnDestroy() {}

@@ -10,6 +10,11 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
   <script src="https://apis.google.com/js/platform.js"></script>
   <script src="https://apis.google.com/js/api.js"></script>
+  <script>
+    if (global === undefined) {
+      var global = window;
+    }
+  </script>
 </head>
 <body class="body-container">
   <app-root></app-root>

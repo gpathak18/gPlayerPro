@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import jsmediatags from "jsmediatags/dist/jsmediatags";
+import jsmediatags from "jsmediatags/dist/jsmediatags.min";
 import { DatabaseService } from "./database.service";
 import { Observable } from "rxjs";
 declare const window: any;

@@ -9,7 +9,7 @@ import { UiService } from '../core/services/ui.service';
 })
 export class EqCanvasComponent implements OnInit {
 
-  @ViewChild('canvas') public canvas: ElementRef;
+  @ViewChild('canvas', {static: false}) public canvas: ElementRef;
 
   // setting a width and height for the canvas
   @Input() public width = 800;
