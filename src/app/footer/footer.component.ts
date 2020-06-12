@@ -16,7 +16,7 @@ import { OAuthService } from 'angular-oauth2-oidc';
   animations: [fadeAnimation]
 })
 export class FooterComponent implements OnInit {
-  @ViewChild('file', {static: false}) input; 
+  @ViewChild('file') input; 
 
   public volumeIcon = 'volume_up';
   public playPauseState = 'pause'

@@ -14,7 +14,7 @@ import { TableviewComponent } from './tableview/tableview.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/player',pathMatch: 'full' },
-  { path: 'files',  loadChildren: '../app/file-handler/file-handler.module#FileHandlerModule'},
+  { path: 'files',  loadChildren: () => import('../app/file-handler/file-handler.module').then(m => m.FileHandlerModule)},
   { path: 'player', component: PlayerComponent, data: { state: 'player'} },
   { path: 'allmusic', component: AllmusicComponent, resolve: { allmusic: LibraryResolverService }, data: { state: 'allmusic'} }, 
   { path: 'albums', component: AlbumsComponent,  resolve: { album: AlbumResolverService }, data: { state: 'albums'}  },

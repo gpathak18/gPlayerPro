@@ -1,4 +1,4 @@
-import { Directive, Input, HostListener, Renderer, ElementRef } from '@angular/core';
+import { Directive, Input, HostListener, ElementRef, Renderer2 } from '@angular/core';
 
 
 @Directive({ selector: '[hoverClass]' })
@@ -9,14 +9,14 @@ export class HoverClassDirective {
 
   constructor(
     public elementRef: ElementRef,
-    private renderer: Renderer
+    private renderer: Renderer2
   ) { }
 
   @HostListener('mouseover') mouseover() {
-    this.renderer.setElementClass(this.elementRef.nativeElement, this.hoverClass, true);
+    this.renderer.addClass(this.elementRef.nativeElement, this.hoverClass);
   }
 
   @HostListener('mouseout') mouseout() {
-    this.renderer.setElementClass(this.elementRef.nativeElement, this.hoverClass, false);
+    this.renderer.removeClass(this.elementRef.nativeElement, this.hoverClass);
   }
 }

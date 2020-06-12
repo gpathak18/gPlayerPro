@@ -27,10 +27,10 @@ import { distinctUntilChanged } from "rxjs/internal/operators/distinctUntilChang
 })
 export class AllmusicComponent implements AfterViewInit {
 
-  @ViewChild("tableContainer",{read: ViewContainerRef, static: false}) 
+  @ViewChild("tableContainer",{ read: ViewContainerRef }) 
   container: ViewContainerRef;
   
-  @ViewChild("tableDiv",{static: false}) table;
+  @ViewChild("tableDiv") table;
 
   private page = 0;
   private componenets = new Map()

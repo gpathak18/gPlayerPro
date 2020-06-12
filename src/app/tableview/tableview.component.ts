@@ -29,12 +29,12 @@ const { shell } = window.require("electron").remote;
 export class TableviewComponent implements OnInit {
   @Input("isDisplayImage")
   isDisplayImage = true;
-  @ViewChild(MatMenuTrigger, {static: false})
+  @ViewChild(MatMenuTrigger)
   trigger: MatMenuTrigger;
-  @ViewChild("table", {static: false})
+  @ViewChild("table")
   table;
 
-  @ViewChild(MatPaginator, {static: false})
+  @ViewChild(MatPaginator)
   paginator: MatPaginator;
 
   // @Input("page")
@@ -324,6 +324,6 @@ export class TableviewComponent implements OnInit {
     return item._id;
   }
 
-  @ViewChild("filter", {static: false})
+  @ViewChild("filter")
   filter: ElementRef;
 }

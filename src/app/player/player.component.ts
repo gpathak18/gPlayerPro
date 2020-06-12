@@ -61,9 +61,9 @@ export class PlayerComponent implements OnInit {
     "Rock",
     "Hard Rock"
   ];
-  @ViewChild("fruitInput", {static: false}) genereInput: ElementRef;
+  @ViewChild("fruitInput") genereInput: ElementRef;
 
-  @ViewChild('artistPanel', {static: false}) panel: ElementRef<any>;
+  @ViewChild('artistPanel') panel: ElementRef<any>;
 
   filepath = "";
   private routerEvtSub: Subscription;
