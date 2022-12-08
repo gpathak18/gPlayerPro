@@ -35,7 +35,7 @@
     "pouchdb": "^7.1.1",
     "pouchdb-adapter-idb": "^7.1.1",
     "pouchdb-find": "^7.1.1",
-    "rxdb": "^8.4.0",
+    "rxdb": "^13.13.7",
     "rxjs": "~6.5.5",
     "tslib": "^1.10.0",
     "wavesurfer.js": "^3.0.0",
